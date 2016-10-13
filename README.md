@@ -1,2 +1,0 @@
-# CallSportsServer
-CallSports
