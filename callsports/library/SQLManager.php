@@ -17,6 +17,7 @@
           $this->serverName=$serverName; 
           $this->dbName=$dbName;
           $this->tableName=$tableName;
+          echo "tableName is $tableName";
           $this->userName=$userName;
           $this->passWord=$passWord;
           $this->conn=new \PDO("mysql:host=$this->serverName;dbname=$this->dbName",$this->userName,$this->passWord); 
@@ -104,10 +105,17 @@
          try
          {
              $querySen=implode(",", $colArray);
-             $sql="select $querySen from $this->tableName where $condition";
-             $result= $this->conn->query($sql);
-             $result=$result->setFetchMode(PDO::FETCH_ASSOC);
-             $result=$result->fetchAll();
+             if(empty($condition))
+             {
+              $sql="select $querySen from $this->tableName";
+             }
+             else
+             {
+              $sql="select $querySen from $this->tableName where $condition";
+             }
+             $stn= $this->conn->query($sql);
+             $stn->setFetchMode(\PDO::FETCH_ASSOC);
+             $result=$stn->fetchAll();
              return $result;
          }
 
