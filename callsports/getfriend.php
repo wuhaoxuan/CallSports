@@ -9,6 +9,7 @@
  $tableName="user_".$userId;
  $sqlManager=new SQLManager($serverName,$userName,$passWord,$dbName,$tableName);
  $result=$sqlManager->queryData(array("*"),null);
+ $result=json_encode($result);
  $result="{friendinfo:'$result'}";
- echo json_encode($result);
+ echo $result;
 ?>
