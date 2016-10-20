@@ -17,7 +17,6 @@
           $this->serverName=$serverName; 
           $this->dbName=$dbName;
           $this->tableName=$tableName;
-          echo "tableName is $tableName";
           $this->userName=$userName;
           $this->passWord=$passWord;
           $this->conn=new \PDO("mysql:host=$this->serverName;dbname=$this->dbName",$this->userName,$this->passWord); 
@@ -48,7 +47,7 @@
           try
         {
           $colData=implode(",", $colArray);
-          $sql="create table $this->tableName ($colData)";  
+          $sql="create table if not exists $this->tableName ($colData)";  
           $this->conn->exec($sql);
           return true;
         }
