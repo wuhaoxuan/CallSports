@@ -1,12 +1,16 @@
 <?php
-require_once('lib/SQLManager.php');
+require_once('../lib/SQLManager.php');
 use callsports\library\SQLManager as SQLManager;
 
 function register($username, $email, $password) {
 // register new person with db
 // return true or error message
 
-   $sqlM = new SQLManager("localhost","root","123456","callSports","allUsers");
+   $sqlM = new SQLManager("localhost","root","123456","callsports","all_users");
+
+   $tableDesc=array("id int not null","username varchar(30)","password varchar(30)","email varchar(60)");
+
+   $sqlM->createTable($tableDesc);
   // check if username is unique
    $result = $sqlM->queryData(array('*'),"username='$username'");
   //$result = $conn->query("select * from user where username='".$username."'");
@@ -35,7 +39,7 @@ function login($username, $password) {
 
   // connect to db
   //$conn = db_connect();
-	$sqlM = new SQLManager("localhost","root","123456","callSports","allUsers");
+	$sqlM = new SQLManager("localhost","root","123456","callsports","all_users");
    // check if username is unique
   $shaPasswd = sha1($password);
 	$result = $sqlM->queryData(array('*'),"username='$username'

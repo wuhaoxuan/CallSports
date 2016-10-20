@@ -1,6 +1,6 @@
 <?php
  use \callsports\library\SQLManager;
- require("./library/SQLManager.php");
+ require("../library/SQLManager.php");
  $userId=$_POST['userId'];
  $serverName="localhost";
  $userName="root";

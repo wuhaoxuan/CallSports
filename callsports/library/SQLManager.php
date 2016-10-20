@@ -100,7 +100,7 @@
         }
      }
 
-     public function queryData($colArray,$condition)
+     public function queryData($colArray,$condition=null)
      {
          try
          {
