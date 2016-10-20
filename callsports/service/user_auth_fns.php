@@ -2,26 +2,26 @@
 require_once('../lib/SQLManager.php');
 use callsports\library\SQLManager as SQLManager;
 
-function register($username, $email, $password) {
+function register($userId, $email, $password) {
 // register new person with db
 // return true or error message
 
    $sqlM = new SQLManager("localhost","root","123456","callsports","all_users");
 
-   $tableDesc=array("id int not null","username varchar(30)","password varchar(30)","email varchar(60)");
+   $tableDesc=array("id int not null","user_id varchar(30)","password varchar(30)","email varchar(60)","primary key(id)");
 
    $sqlM->createTable($tableDesc);
   // check if username is unique
-   $result = $sqlM->queryData(array('*'),"username='$username'");
+   $result = $sqlM->queryData(array('*'),"user_id='$userId'");
   //$result = $conn->query("select * from user where username='".$username."'");
 
   if (count($result)>0) {
-    throw new Exception('That username is taken - go back and choose another one.');
+    throw new Exception('That userId is taken - go back and choose another one.');
   }
 
   // if ok, put in db
   $shaPasswd = sha1($password);
-  $result = $sqlM->insertValue(array(username,passwd,email),array('$username','$shaPasswd', '$email'));
+  $result = $sqlM->insertValue(array(user_id,passwd,email),array('$userId','$shaPasswd', '$email'));
   
   //$result = $conn->query("insert into user values
                         // ('".$username."', sha1('".$password."'), '".$email."')");
@@ -32,7 +32,7 @@ function register($username, $email, $password) {
   return true;
 }
 
-function login($username, $password) {
+function login($userId, $password) {
 // check username and password with db
 // if yes, return true
 // else throw exception
@@ -42,7 +42,7 @@ function login($username, $password) {
 	$sqlM = new SQLManager("localhost","root","123456","callsports","all_users");
    // check if username is unique
   $shaPasswd = sha1($password);
-	$result = $sqlM->queryData(array('*'),"username='$username'
+	$result = $sqlM->queryData(array('*'),"user_id='$userId'
 											and passwd = '$shaPasswd'");
   
   //$result = $conn->query("select * from user
