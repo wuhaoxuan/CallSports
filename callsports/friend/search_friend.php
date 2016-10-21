@@ -10,9 +10,10 @@
  
  $tableName="all_users";
  $sqlManager=new SQLManager($tableName);
- $sqlSen=array("*");
- $condition="username='$requestUserId'";
+ $sqlSen=array("user_id","email");
+ $condition="user_id='$requestUserId'";
  $result=$sqlManager->queryData($sqlSen, $condition);
+ $result=$result->fetch();
  if(empty($result))
  {
  	$result=array("result"=>"not found");
@@ -21,9 +22,11 @@
  }
  else
  {
- 	$data=array();
- 	$data["result"]="found";
- 	$finalResult=array_merge($data,$result);
+ 	// $data=array();
+ 	// $data["result"]="found";
+ 	// $finalResult=array_merge($data,$result);
+ 	$finalResult=array("result"=>"found");
+ 	$finalResult=array_merge($finalResult,$result);
  	$finalResult=json_encode($finalResult);
  	echo $finalResult;
  	die();

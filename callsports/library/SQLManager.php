@@ -10,7 +10,7 @@
       private $conn;
       private static $sqlManager;
       
-      public function __construct($serverName,$userName,$passWord,$dbName,$tableName)
+      public function __construct($tableName,$serverName="localhost",$userName="root",$passWord="132231",$dbName="CallSports")
       {
         try
         {
@@ -114,8 +114,8 @@
              }
              $stn= $this->conn->query($sql);
              $stn->setFetchMode(\PDO::FETCH_ASSOC);
-             $result=$stn->fetchAll();
-             return $result;
+             // $result=$stn->fetchAll();
+             return $stn;
          }
 
          catch(PDOException $e)
@@ -126,12 +126,19 @@
      }
 
 
-     public function updateValue($newValueArray,$condition)
+     public function updateValue($newValueArray,$condition=null)
      {
        try
        {
             $dataArray=implode("=", $newValueArray);
-            $sql="update $this->tableName set $dataArray where $condition";
+            if(empty($condition))
+            {
+               $sql="update $this->tableName set $dataArray"; 
+            }
+            else
+            {
+              $sql="update $this->tableName set $dataArray where $condition";
+            }
             $this->conn->exec($sql);
             return true;
        }
