@@ -2,10 +2,10 @@
    // include function files for this application
   require_once('user_auth_fns.php');
   try{
-	$userId=$_POST['userId'];
-    	$passwd=$_POST['passwd'];
+	$user_id=$_POST['user_id'];
+    	$password=$_POST['password'];
 
-	login($userId, $passwd);
+	login($user_id, $password);
 	echo json_encode(array('result' => 'success'));
     	exit;
    }catch (Exception $e){
