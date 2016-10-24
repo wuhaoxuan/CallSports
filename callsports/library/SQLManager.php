@@ -10,7 +10,7 @@
       private $conn;
       private static $sqlManager;
       
-      public function __construct($tableName,$serverName="localhost",$userName="root",$passWord="123456",$dbName="call_sports")
+      public function __construct($tableName,$serverName="localhost",$userName="root",$passWord="132231",$dbName="callsports")
       {
         try
         {
