@@ -7,37 +7,38 @@
  	echo "please post userId";
  	die();
  }
- $state=$_POST['state'];
- if(empty($state))
- {
- 	echo "please post state";
- 	die();
- }
- 
  $requestUserId=$_POST['requestUserId'];
  if(empty($requestUserId))
  {
  	echo "please post requestUserId";
  	die();
  }
+
+ $access=$_POST['accept'];
+ if(empty($access))
+ {
+ 	echo "Please post accept";
+ 	die();
+ }
  //update user table state;
-function updataValue($userId,$state,$condition)
+function updateValue($userId,$state,$condition)
 {
-  $tableName="user_$userId";
+  $tableName="user_".$userId."_friendinfo";
   $sqlManager=new SQLManager($tableName);
-  $condition="user_id='$requestUserId'";
-  $valueArray=new Array("state"=>$state);
+  $valueArray=array("state",$state);
   $sqlManager->updateValue($valueArray,$condition);
 }
 
-if($state==1)
+if("true"==$access)
 {
-	updataValue($userId,1,"user_id='$requestUserId'");
-	updataValue($requestUserId,1,"user_id='$userId'");
+	updateValue($userId,1,"user_id='$requestUserId'");
+	updateValue($requestUserId,1,"user_id='$userId'");
 }
-else if($state==4)
+else
 {
-	updataValue($userId,4,"user_id='$requestUserId'");
-	updataValue($requestUserId,4,"user_id='$userId'");
+	updateValue($userId,4,"user_id='$requestUserId'");
+	updateValue($requestUserId,5,"user_id='$userId'");
 }
+$result=array("result"=>"success");
+echo json_encode($result);
 ?>

@@ -7,8 +7,11 @@
  	echo "please post userId";
  	die();
  }
- $tableName="user_".$userId;
+ $tableName="user_".$userId."_friendinfo";
  $sqlManager=new SQLManager($tableName);
  $result=$sqlManager->queryData(array("*"));
- echo json_encode($result);
+ $result=$result->fetchAll();
+ $data=json_encode($result);
+ $result="{friendinfo:$data}";
+ echo $result;
 ?>
