@@ -53,12 +53,24 @@
         }
         catch(PDOException $e)
         {
-        // echo "create table this->$tableName failed" . $e->getMessage();
+         echo "create table this->$tableName failed" . $e->getMessage();
          return false;
         }
 
       }
      
+     public function exec($stn)
+     {
+       try
+       {
+        $this->conn->exec($stn);
+        return true;
+       }
+       catch(PDOException $e)
+       {
+         return false;
+       }
+     }
 
      public function insertValue($columsArray,$insertDataArray)
      {
@@ -68,7 +80,6 @@
           $colums=implode(",", $columsArray);
           $datas=implode(",", $insertDataArray);
           $sql="insert into $this->tableName ($colums) values ($datas)";
-
           $this->conn->exec($sql);
           return true;
         }
@@ -113,7 +124,6 @@
              {
               $sql="select $querySen from $this->tableName where $condition";
              }
-             //echo $sql;
              $stn= $this->conn->query($sql);
              $stn->setFetchMode(\PDO::FETCH_ASSOC);
              // $result=$stn->fetchAll();

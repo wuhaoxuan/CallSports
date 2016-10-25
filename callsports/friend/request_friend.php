@@ -2,6 +2,7 @@
  use \callsports\library\SQLManager;
  require("../library/SQLManager.php");
  include '../library/imserver/api/rongcloud.php';
+ require("./RongManager.php");
  $userId=$_POST["userId"];
  $requestUserId=$_POST['requestUserId'];
  $message=$_POST['message'];
@@ -50,12 +51,13 @@ $sqlManager->exec($stn);
   $sqlManager->exec($stn);
 
 //notify request friend
-$appKey = 'lmxuhwagxh61d';
-$appSecret = 'MADzJImCROOxS2';
-$jsonPath = "jsonsource/";
-$rongCloud = new RongCloud($appKey,$appSecret);
+// $appKey = 'lmxuhwagxh61d';
+// $appSecret = 'MADzJImCROOxS2';
+// $jsonPath = "jsonsource/";
+// $rongCloud = new RongCloud($appKey,$appSecret);
+  $rongManager=new RongManager();
 // 发送系统消息方法（一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。每秒钟最多发送 100 条消息，每次最多同时向 100 人发送，如：一次发送 100 人时，示为 100 条消息。）
-	$result = $rongCloud->message()->PublishSystem($userId, $requestUserId, 'RC:ContactNtf',"{\"content\":\"$message\",\"extra\":\"helloExtra\"}", 'thisisapush', '{\"pushData\":\"$message\"}', '0', '0');
+	$result = $rongManager->PublishSystem($userId, $requestUserId, 'RC:ContactNtf',"{\"content\":\"$message\",\"extra\":\"helloExtra\"}", 'thisisapush', '{\"pushData\":\"$message\"}', '0', '0');
 
 	// $result = $rongCloud->message()->publishPrivate($userId, $requestUserId,'RC:ContactNtf',"{\"content\":\"hello\",\"extra\":\"helloExtra\",\"duration\":20}", 'thisisapush', '{\"pushData\":\"hello\"}', '4', '0', '0', '0');
 	// $result = $rongCloud->message()->broadcast('userId1', 'RC:ContactNtf',"{\"content\":\"哈哈\",\"extra\":\"hello ex\"}", 'thisisapush', '{\"pushData\":\"hello\"}');
