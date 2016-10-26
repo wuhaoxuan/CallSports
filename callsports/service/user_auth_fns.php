@@ -8,13 +8,44 @@ function register($user_id, $password,$nick_name,$email,$sex,$phone_num,$head_pr
 
    $sqlM = new SQLManager("all_users");
 
-   $tableDesc = array("user_id char(30)  not null primary key","password char(40)  not null ","nick_name char(30) not null","email  char(30)  not null","sex char(5) not null",
-                                          "phone_num char(11) not null","head_protrait char(60)  not null","reg_date TIMESTAMP" );
+   $tableDesc = array("user_id varchar(30)  not null primary key","password varchar(40)  not null ","nick_name varchar(30) not null","email  varchar(60)  not null","sex varchar(5) not null",
+                                          "phone_num varchar(11) not null","protrait text  not null","reg_date TIMESTAMP" );
 
-   $result = $sqlM->createTable($tableDesc);
-    if(!$result)
+  $result = $sqlM->createTable($tableDesc);
+  if(!$result)
         throw new Exception("cteateTable  all_users error");
-        
+
+  //create user friend_info table and insert data 
+  $tableFriendName = $user_id."_friend_info";
+  $sqlFriend = new SQLManager($tableFriendName);       
+  $tableDesc = array("id int not null primary key auto_increment","user_id varchar(30)  not null","email  varchar(60)  not null","protrait text  not null","state int",
+                                          "message text");
+
+   $result = $sqlFriend->createTable($tableDesc);
+    if(!$result)
+        throw new Exception("cteateTable $tableFriendName error");
+
+  //create user activity table     and insert data 
+  $tableActivityName = $user_id."_activity";
+  $sqlActivity = new SQLManager($tableActivityName);
+       
+  $tableDesc = array("id int not null primary key auto_increment","user_id varchar(30)  not null","activity text");
+
+   $result = $sqlActivity->createTable($tableDesc);
+   if(!$result)
+   {
+    $sqlFriend->deleteTable($tableFriendName);
+    throw new Exception("cteateTable $tableActivityName error");
+   }
+   $result = $sqlActivity->insertValue(array(user_id),array("'".$user_id."'"));
+   if (!$result) {
+        $sqlFriend->deleteTable($tableFriendName);
+        $sqlActivity->deleteTable($tableActivityName);
+        throw new Exception('Could not insert you in $tableActivityName - please try again later.');
+   }
+
+
+
   // check if username is unique
    $result = $sqlM->queryData(array('*'),"user_id='$user_id'");
    $num =  count($result->fetchAll());
@@ -22,10 +53,17 @@ function register($user_id, $password,$nick_name,$email,$sex,$phone_num,$head_pr
     throw new Exception('That userId is taken - go back and choose another one.');
   }
 
+  // check if eamil is unique
+  $result = $sqlM->queryData(array('*'),"email='$email'");
+  $num =  count($result->fetchAll());
+  if ($num  >0) {
+    throw new Exception('That email is taken - go back and choose another one.');
+  }
+
   // if ok, put in db
   $shaPasswd = sha1($password);
 
-  $result = $sqlM->insertValue(array(user_id,password,nick_name,email,sex,phone_num,head_protrait),array("'".$user_id."'","'".$shaPasswd."'", "'".$nick_name."'","'".$email."'","'".$sex."'","'".$phone_num."'" ,"'".$head_protrait."'"));
+  $result = $sqlM->insertValue(array(user_id,password,nick_name,email,sex,phone_num,protrait),array("'".$user_id."'","'".$shaPasswd."'", "'".$nick_name."'","'".$email."'","'".$sex."'","'".$phone_num."'" ,"'".$head_protrait."'"));
   
   
   if (!$result) {
