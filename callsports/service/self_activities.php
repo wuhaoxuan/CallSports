@@ -10,15 +10,26 @@ use callsports\library\SQLManager as SQLManager;
 		$sqlM = new SQLManager("all_activities");
    // check if username is unique
       
-	$result = $sqlM->queryData(array('*'),"user_id='$userId'") ;
+	$result = $sqlM->queryData(array('*'),"user_id='$user_id'") ;
 	$result_arr = $result->fetchAll();
-    $num =  count($result_arr);
+  $num =  count($result_arr);
 
-    if ($num  >  0) {
-        echo json_encode($result_arr);   
-          
+  if ($num  >  0) {
+         if ($offset >= 0 && $offset < $num) {
+      $total_offset = $num - $offset;
+      $actual_offset = $total_offset > $total_num ? $total_num : $total_offset;
+
+      $final_result = array();
+      for($i=0;$i<$actual_offset;$i++){
+        array_push($final_result, $result_arr[$i+$offset]);
+      }
+    echo json_encode($final_result); 
+    }else{
+    //
+      echo json_encode(array()); 
+     }      
      }else {
-     	echo json_encode(array('')); 
+     	echo json_encode(array()); 
     }
 
 	}catch(Exception $e){
