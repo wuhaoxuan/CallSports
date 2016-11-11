@@ -7,7 +7,7 @@
  	echo "please post userId";
  	die();
  }
- $tableName="user_".$userId."_friendinfo";
+ $tableName=$userId."_friend_info";
  $sqlManager=new SQLManager($tableName);
  $result=$sqlManager->queryData(array("*"));
  $result=$result->fetchAll();

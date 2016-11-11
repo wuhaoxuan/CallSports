@@ -42,7 +42,7 @@ $sqlManager->exec($stn);
 
  //request frind insert info
 
- $tableName="user_".$requestUserId."_friendinfo";
+ $tableName=$requestUserId."_friend_info";
  $sqlManager=new SQLManager($tableName);
  // $insertColum=array("user_id","state");
  // $insertValue=array("'$userId'",3);

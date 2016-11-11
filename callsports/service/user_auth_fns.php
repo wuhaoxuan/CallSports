@@ -79,19 +79,19 @@ function register($user_id, $password,$nick_name,$email,$sex,$phone_num,$head_pr
 function login($userId, $password) {
 // check username and password with db
   // connect to db
-
 	$sqlM = new SQLManager("all_users");
    // check if username is unique
         $shaPasswd = sha1($password);
 	$result = $sqlM->queryData(array('*'),"user_id='$userId'   and password = '$shaPasswd'") ;
-        $num =  count($result->fetchAll());
-
-        if ($num  >  0) {
-          return true;
+        return $result->fetch();
+        // echo json_encode($result->fetch());
+        // $num =  count($result->fetchAll());
+        // if ($num  >  0) {
+        //   return true;
           
-        }else {
-            throw new Exception('Could not log you in.');
-        }
+        // }else {
+        //     throw new Exception('Could not log you in.');
+        // }
         
 
 }

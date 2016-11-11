@@ -24,7 +24,7 @@
  //update user table state;
 function updateValue($userId,$state,$condition)
 {
-  $tableName="user_".$userId."_friendinfo";
+  $tableName=$userId."_friend_info";
   $sqlManager=new SQLManager($tableName);
   $valueArray=array("state",$state);
   $sqlManager->updateValue($valueArray,$condition);
