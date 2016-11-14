@@ -26,11 +26,11 @@
    	 }
    	 $result=$this->rongCloud->Message()->PublishSystem($fromUserId, $toUserId, '$objectName',$content, '$pushContent', '$pushData', $isPersisted, $isCounted);
      print_r($result);
-	echo "\n";
+	   echo "\n";
    }
 
 
-   echo ("\n***************** group **************\n");
+  // echo ("\n***************** group **************\n");
 	// 创建群组方法（创建群组，并将用户加入该群组，用户将可以收到该群的消息，同一用户最多可加入 500 个群，每个群最大至 3000 人，App 内的群组数量没有限制.注：其实本方法是加入群组方法 /group/join 的别名。）
    public function createGroup($userId, $groupId, $groupName)
    {

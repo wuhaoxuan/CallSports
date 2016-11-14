@@ -63,6 +63,7 @@
      {
        try
        {
+        echo $stn;
         $this->conn->exec($stn);
         return true;
        }

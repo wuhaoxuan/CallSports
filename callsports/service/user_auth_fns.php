@@ -18,7 +18,7 @@ function register($user_id, $password,$nick_name,$email,$sex,$phone_num,$head_pr
   //create user friend_info table and insert data 
   $tableFriendName = $user_id."_friend_info";
   $sqlFriend = new SQLManager($tableFriendName);       
-  $tableDesc = array("id int not null primary key auto_increment","user_id varchar(30)  not null","email  varchar(60)  not null","protrait text  not null","state int",
+  $tableDesc = array("id int not null primary key auto_increment","user_id varchar(30)  not null","email  varchar(60)","protrait text  not null","state int",
                                           "message text");
 
    $result = $sqlFriend->createTable($tableDesc);

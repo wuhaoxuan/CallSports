@@ -10,7 +10,7 @@
  
  $tableName="all_users";
  $sqlManager=new SQLManager($tableName);
- $sqlSen=array("user_id","email","portrait");
+ $sqlSen=array("user_id","email","protrait");
  $condition="user_id='$requestUserId'";
  $result=$sqlManager->queryData($sqlSen, $condition);
  $result=$result->fetch();

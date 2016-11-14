@@ -11,7 +11,14 @@
  $sqlManager=new SQLManager($tableName);
  $result=$sqlManager->queryData(array("*"));
  $result=$result->fetchAll();
- $data=json_encode($result);
- $result="{friendinfo:$data}";
+ if(count($result)>0)
+ {
+  $data=json_encode($result);
+  $result="{friendinfo:$data}";
+ }
+ else
+ {
+   $result="{}";
+ }
  echo $result;
 ?>

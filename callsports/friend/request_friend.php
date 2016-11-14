@@ -32,7 +32,7 @@ if(empty($message))
 //state : 1 好友, 2 请求添加, 3 请求被添加, 4 请求被拒绝, 5拒绝请求，6 我被对方删除
 
 //insert request friend info
- $tableName="user_".$userId."_friendinfo";
+ $tableName=$userId."_friend_info";
  $sqlManager=new SQLManager($tableName);
  $stn="insert into $tableName (user_id,state,message) select '$requestUserId',2,'$message' from dual where not exists (select user_id from $tableName where user_id='$requestUserId')";
  // $insertColum=array("user_id","state");
