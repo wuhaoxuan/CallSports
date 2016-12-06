@@ -1,0 +1,31 @@
+{
+    "base": {
+        "params": {
+
+            "hostPath":"http://10.10.20.160/CallSports",
+
+            "sportTypes": [
+                {
+                    "name": "足球"
+                }, 
+                {
+                    "name": "篮球"
+                }, 
+                {
+                    "name": "台球"
+                }
+            ], 
+            "payTypes": [
+                {
+                    "type": "均摊"
+                }, 
+                {
+                    "type": "发起者买单"
+                }, 
+                {
+                    "type": "参与者买单"
+                }
+            ]
+        }
+    }
+}

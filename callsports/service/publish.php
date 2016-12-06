@@ -9,10 +9,11 @@ try{
    $name=$_POST['name'];
    $time=$_POST['time'];
    $address=$_POST['address'];
+   $latitude=$_POST['latitude'];
+   $longitude=$_POST['longitude'];
    $total_num = $_POST['total_num'];
    $now_num = $_POST['now_num'];
    $cost = $_POST['cost'];
-   $cost_type = $_POST['cost_type'];
    $introduce = $_POST['introduce'];
 
    //if not exists create table all_activities
@@ -23,10 +24,11 @@ try{
    						,"name varchar(40)  not null "
    						,"time varchar(30) not null"
    						,"address  text  not null"
-   						,"total_num int not null"
+              ,"latitude double not null"
+              ,"longitude double not null"
+   						,"total_num varchar(30) not null"
    						,"now_num int not null"
-   						,"cost int not null"
-   						,"cost_type int not null"
+   						,"cost varchar(20) not null"
    						,"introduce text  not null");
 
   	$result = $sqlM->createTable($tableDesc);
@@ -36,8 +38,8 @@ try{
 
 
   //insert to all_activities
-    $result = $sqlM->insertValue(array(user_id,name,time,address,total_num,now_num,cost,cost_type,introduce)
-    							,array("'".$user_id."'","'".$name."'","'".$time."'", "'".$address."'","'".$total_num."'","'".$now_num."'","'".$cost."'" ,"'".$cost_type."'","'".$introduce."'"));
+    $result = $sqlM->insertValue(array(user_id,name,time,address,latitude,longitude,total_num,now_num,cost,introduce)
+    							,array("'".$user_id."'","'".$name."'","'".$time."'", "'".$address."'","'".$latitude."'","'".$longitude."'","'".$total_num."'","'".$now_num."'","'".$cost."'" ,"'".$introduce."'"));
   
   
   if (!$result) {
