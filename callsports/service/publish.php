@@ -27,7 +27,7 @@ try{
               ,"latitude double not null"
               ,"longitude double not null"
    						,"total_num varchar(30) not null"
-   						,"now_num int not null"
+   						,"now_num varchar(30) not null"
    						,"cost varchar(20) not null"
    						,"introduce text  not null");
 
