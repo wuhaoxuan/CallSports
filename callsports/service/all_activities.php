@@ -22,9 +22,8 @@ use callsports\library\SQLManager as SQLManager;
       $final_result = array();
       for($i=0;$i<$actual_offset;$i++){
         array_push($final_result, $result_arr[$i+$offset]);
-      }
-    $result=json_encode($final_result);
-    echo json_encode(array("result"=>$result)); 
+      }ß
+    echo json_encode(array("activities"=>$final_result)); 
     }else{
     //
       echo json_encode(array()); 
