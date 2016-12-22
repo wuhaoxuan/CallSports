@@ -29,7 +29,7 @@ function register($user_id, $password,$nick_name,$email,$sex,$phone_num,$head_pr
   $tableActivityName = $user_id."_activity";
   $sqlActivity = new SQLManager($tableActivityName);
        
-  $tableDesc = array("id int not null primary key auto_increment","user_id varchar(30)  not null","activity text");
+  $tableDesc = array("id int not null primary key auto_increment","user_id varchar(30)  not null","activity text","type  int");
 
    $result = $sqlActivity->createTable($tableDesc);
    if(!$result)

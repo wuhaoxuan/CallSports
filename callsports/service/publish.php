@@ -5,6 +5,7 @@ use callsports\library\SQLManager as SQLManager;
 try{
 
 	//get the publish message
+  $id=$_POST['id'];
    $user_id=$_POST['user_id'];
    $name=$_POST['name'];
    $time=$_POST['time'];
@@ -16,10 +17,11 @@ try{
    $cost = $_POST['cost'];
    $introduce = $_POST['introduce'];
 
+
    //if not exists create table all_activities
     $sqlM = new SQLManager("all_activities");
 
-   	$tableDesc = array("id int not null primary key auto_increment"
+   	$tableDesc = array("id varchar(50) not null primary key "
    						,"user_id varchar(30) not null"
    						,"name varchar(40)  not null "
    						,"time varchar(30) not null"
@@ -38,8 +40,8 @@ try{
 
 
   //insert to all_activities
-    $result = $sqlM->insertValue(array(user_id,name,time,address,latitude,longitude,total_num,now_num,cost,introduce)
-    							,array("'".$user_id."'","'".$name."'","'".$time."'", "'".$address."'","'".$latitude."'","'".$longitude."'","'".$total_num."'","'".$now_num."'","'".$cost."'" ,"'".$introduce."'"));
+    $result = $sqlM->insertValue(array(id,user_id,name,time,address,latitude,longitude,total_num,now_num,cost,introduce)
+    							,array("'".$id."'","'".$user_id."'","'".$name."'","'".$time."'", "'".$address."'","'".$latitude."'","'".$longitude."'","'".$total_num."'","'".$now_num."'","'".$cost."'" ,"'".$introduce."'"));
   
   
   if (!$result) {
