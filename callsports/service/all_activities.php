@@ -3,7 +3,7 @@ require_once('../library/SQLManager.php');
 use callsports\library\SQLManager as SQLManager;
 
 	try{
-		  $user_id=$_POST['user_id'];	
+		    $user_id=$_POST['user_id'];	
   		  $offset=$_POST['offset'];
    		  $total_num=$_POST['total_num'];
 
@@ -22,7 +22,7 @@ use callsports\library\SQLManager as SQLManager;
       $final_result = array();
       for($i=0;$i<$actual_offset;$i++){
         array_push($final_result, $result_arr[$i+$offset]);
-      }ß
+      }
     echo json_encode(array("activities"=>$final_result)); 
     }else{
     //
