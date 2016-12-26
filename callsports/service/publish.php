@@ -1,7 +1,8 @@
 <?php
 require_once('../library/SQLManager.php');
+require_once('constant.php');
 use callsports\library\SQLManager as SQLManager;
-
+use callsports\service\Constant as Constant;
 
 function create_uuid($prefix = ""){    //可以指定前缀
     $str = md5(uniqid(mt_rand(), true));   
@@ -54,8 +55,9 @@ try{
     $result = $sqlM->insertValue(array(id,user_id,name,time,address,latitude,longitude,total_num,now_num,cost,introduce)
     							,array("\"$uuid\"","'".$user_id."'","'".$name."'","'".$time."'", "'".$address."'","'".$latitude."'","'".$longitude."'","'".$total_num."'","'".$now_num."'","'".$cost."'" ,"'".$introduce."'"));
     
-  
-  if (!$result) {
+   $sqlManager=new SQLManager($user_id."_activity"); 
+   $resultSignal=$sqlManager->insertValue(array(id,user_id,type),array("\"$uuid\"","\"$user_id\"",Constant::ACTIVITY_CREATE));
+  if (!$result || !$resultSignal) {
    echo json_encode(array("result"=>'Could not insert your activity in database - please try again later.'));
   }
 

@@ -29,7 +29,7 @@ function register($user_id, $password,$nick_name,$email,$sex,$phone_num,$head_pr
   $tableActivityName = $user_id."_activity";
   $sqlActivity = new SQLManager($tableActivityName);
        
-  $tableDesc = array("id int not null primary key auto_increment","user_id varchar(30)  not null","activity text","type  int");
+  $tableDesc = array("id varchar(50) not null","user_id varchar(30)  not null","activity text","type  int");
 
    $result = $sqlActivity->createTable($tableDesc);
    if(!$result)
@@ -37,12 +37,12 @@ function register($user_id, $password,$nick_name,$email,$sex,$phone_num,$head_pr
     $sqlFriend->deleteTable($tableFriendName);
     throw new Exception("cteateTable $tableActivityName error");
    }
-   $result = $sqlActivity->insertValue(array(user_id),array("'".$user_id."'"));
-   if (!$result) {
-        $sqlFriend->deleteTable($tableFriendName);
-        $sqlActivity->deleteTable($tableActivityName);
-        throw new Exception('Could not insert you in $tableActivityName - please try again later.');
-   }
+   // $result = $sqlActivity->insertValue(array(user_id),array("'".$user_id."'"));
+   // if (!$result) {
+   //      $sqlFriend->deleteTable($tableFriendName);
+   //      $sqlActivity->deleteTable($tableActivityName);
+   //      throw new Exception('Could not insert you in $tableActivityName - please try again later.');
+   // }
 
 
 
