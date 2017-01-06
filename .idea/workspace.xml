@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ca0e944b-3e94-4e05-9639-fe3210c7682f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/CallSports/controller/AccountService.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/CallSports/controller/ActivityService.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/CallSports/controller/FriendService.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/CallSports/controller/TestService.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/CallSports/model/AccountModel.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/CallSports/model/ActivityModel.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/CallSports/model/FriendsInfoModel.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/CallSports/model/TestModel.php" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CallSports" afterPath="$PROJECT_DIR$/CallSports" />
-    </list>
+    <list default="true" id="ca0e944b-3e94-4e05-9639-fe3210c7682f" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,7 +20,7 @@
         <entry file="file://$PROJECT_DIR$/application/CallSports/model/ActivityModel.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="216">
-              <caret line="25" column="36" lean-forward="true" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
+              <caret line="25" column="36" lean-forward="false" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
               <folding>
                 <element signature="e#40#53#0#PHP" expanded="true" />
                 <marker date="1483686845000" expanded="true" signature="282:295" ph="create table... ${$this}" />
@@ -48,7 +36,7 @@
         <entry file="file://$PROJECT_DIR$/application/CallSports/controller/ActivityService.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="48">
-              <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="39" />
+              <caret line="14" column="29" lean-forward="false" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -298,68 +286,6 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CallSports" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="callsports" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CallSports" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="callsports" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CallSports" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="callsports" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="friend" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
@@ -463,12 +389,12 @@
       <workItem from="1483485412253" duration="12112000" />
       <workItem from="1483533499672" duration="4930000" />
       <workItem from="1483572053644" duration="15491000" />
-      <workItem from="1483658280730" duration="5602000" />
+      <workItem from="1483658280730" duration="5708000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68978000" />
+    <option name="totallyTimeSpent" value="69084000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="20" y="23" width="1260" height="672" extended-state="0" />
@@ -842,14 +768,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="64" selection-end-column="33" />
-          <folding>
-            <marker date="1483576564000" expanded="true" signature="700:874" ph="insert into ${$tableName}... " />
-            <marker date="1483576564000" expanded="true" signature="747:874" ph="select '${$r... dual" />
-            <marker date="1483576564000" expanded="true" signature="812:873" ph="select user_... ${$tableName}" />
-            <marker date="1483576564000" expanded="true" signature="1310:1470" ph="insert into ${$tableName}... " />
-            <marker date="1483576564000" expanded="true" signature="1357:1470" ph="select '${$u... dual" />
-            <marker date="1483576564000" expanded="true" signature="1415:1469" ph="select user_... ${$tableName}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -912,7 +831,7 @@
     <entry file="file://$PROJECT_DIR$/application/CallSports/controller/ActivityService.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="48">
-          <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="39" />
+          <caret line="14" column="29" lean-forward="false" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="39" />
           <folding />
         </state>
       </provider>
@@ -920,7 +839,7 @@
     <entry file="file://$PROJECT_DIR$/application/CallSports/model/ActivityModel.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
-          <caret line="25" column="36" lean-forward="true" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
+          <caret line="25" column="36" lean-forward="false" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
           <folding>
             <element signature="e#40#53#0#PHP" expanded="true" />
             <marker date="1483686845000" expanded="true" signature="282:295" ph="create table... ${$this}" />
