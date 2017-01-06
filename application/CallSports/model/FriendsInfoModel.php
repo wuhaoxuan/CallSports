@@ -6,11 +6,11 @@ use think\Db;
 
 class FriendsInfoModel
 {
-    private $tableName;
+    protected $table;
 
     public function __construct($tableName=null)
     {
-        $this->tableName = $tableName."_friendsinfo";
+        $this->table = $tableName."_friendsinfo";
     }
 
 
