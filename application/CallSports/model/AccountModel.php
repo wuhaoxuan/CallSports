@@ -68,7 +68,7 @@
           $result=self::where(['user_id'=>$userId,'password'=>$shaPassword])->find();
           if(!empty($result))
           {
-              return ['result'=>'success'];
+              return ['result'=>'success','user_id'=>$userId];
           }
           else
           {
