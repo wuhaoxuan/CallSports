@@ -18,6 +18,7 @@
      public function searchAndUpdate()
      {
          $result=self::where('state',1)->find();
+         $result->save(['email'=>"男"]);
          $result->save(['state'=>2]);
      }
 

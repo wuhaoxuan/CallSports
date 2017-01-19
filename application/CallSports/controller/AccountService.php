@@ -14,22 +14,21 @@
 
       public function register()
       {
-          $user_id=$this->request->get('user_id');
-          $password=$this->request->get('password');
-          $nick_name=$this->request->get('nick_name');
-          $email=$this->request->get('emial');
-          $sex=$this->request->get('sex');
-          $phone_num=$this->request->get('phone_num');
-          $head_protrait=$this->request->get('head_protrait');
+          $user_id=$this->request->post('user_id');
+          $password=$this->request->post('password');
+          $nick_name=$this->request->post('nick_name');
+          $email=$this->request->post('emial');
+          $sex=$this->request->post('sex');
+          $phone_num=$this->request->post('phone_num');
+          $head_protrait=$this->request->post('head_protrait');
           $accountModel=new AccountModel();
           $registerResult=$accountModel->registerNew($user_id,$password,$nick_name,$email,$sex,$phone_num,$head_protrait);
           return $registerResult;
       }
 
-      public function login()
+      public function login($user_id,$password)
       {
-          $user_id=$this->request->get('user_id');
-          $password=$this->request->get('password');
+
           $accountModel=new AccountModel();
           $loginResult=$accountModel->login($user_id,$password);
           return $loginResult;
