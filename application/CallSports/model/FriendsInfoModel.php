@@ -6,18 +6,17 @@ use think\Db;
 
 class FriendsInfoModel
 {
-    protected $table;
+//    protected $table;
+//
+//    public function __construct($tableName=null)
+//    {
+//        $this->table = $tableName."_friendsinfo";
+//    }
 
-    public function __construct($tableName=null)
+    public function getFriendsInfo($userId)
     {
-        $this->table = $tableName."_friendsinfo";
-    }
 
-
-    public function getFriendsInfo()
-    {
-
-        $result = Db::query("select * from $this->table");
+        $result = Db::query("select * from $userId"."_friendsinfo");
         $result = array("friendsinfo" => $result);
         return $result;
     }
@@ -50,10 +49,16 @@ class FriendsInfoModel
 
     public function requestFriend($userId,$requestUserId,$message)
     {
-//          $isExists=Db::execute("show tables like \"$requestUserId"."_friendsinfo");
-        $insertData=['user_id'=>$requestUserId,'state'=>2,'message'=>$message];
+        //insert data in user
+        $email=Db::table('all_users')->where('user_id',$requestUserId)->value('email');
+        $protrait=Db::table('all_users')->where('user_id',$requestUserId)->value('protrait');
+        $insertData=['user_id'=>$requestUserId,'state'=>2,'message'=>$message,'email'=>$email,'protrait'=>$protrait];
         $userResult=Db::table($userId."_friendsinfo")->insert($insertData);
-        $insertData=['user_id'=>$userId,'state'=>3,'message'=>$message];
+
+        //insert data in requestUser
+        $email=Db::table('all_users')->where('user_id',$userId)->value('email');
+        $protrait=Db::table('all_users')->where('user_id',$userId)->value('protrait');
+        $insertData=['user_id'=>$userId,'state'=>3,'message'=>$message,'email'=>$email,'protrait'=>$protrait];
         $requestUserResult=Db::table($requestUserId.'_friendsinfo')->insert($insertData);
         if($userResult && $requestUserResult)
         {
@@ -72,7 +77,7 @@ class FriendsInfoModel
 //          $result=Db::table($tableName)->where('user_id',$requestUserId)->column(['user_id','nick_name','email','sex','phone_num','protrait']);
          if(count($result)>0)
          {
-             $result[0]['result']='success';
+             $result[0]['result']='found';
          }
          return $result[0];
 

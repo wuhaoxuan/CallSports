@@ -30,7 +30,7 @@ class FriendService
     public function getFriendsInfo($userId)
     {
         $friendsInfoModel = new FriendsInfoModel($userId);
-        return $friendsInfoModel->getFriendsInfo();
+        return $friendsInfoModel->getFriendsInfo($userId);
     }
 
     public function modifyFriendState($userId, $requestUserId, $accept)
@@ -58,11 +58,12 @@ class FriendService
 
     public function requestFriend($userId, $requestUserId, $message)
     {
+
         $friendsInfoModel = new FriendsInfoModel();
         $result = $friendsInfoModel->requestFriend($userId, $requestUserId, $message);
-        $rongManager=new RongManager();
+//        $rongManager=new \RongManager();
          // 发送系统消息方法（一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。每秒钟最多发送 100 条消息，每次最多同时向 100 人发送，如：一次发送 100 人时，示为 100 条消息。）
-        $messageResult = $rongManager->PublishSystem($userId, $requestUserId, 'RC:ContactNtf',"{\"content\":\"$message\",\"extra\":\"helloExtra\"}", 'thisisapush', '{\"pushData\":\"$message\"}', '0', '0');
+//        $messageResult = $rongManager->PublishSystem($userId, $requestUserId, 'RC:ContactNtf',"{\"content\":\"$message\",\"extra\":\"helloExtra\"}", 'thisisapush', '{\"pushData\":\"$message\"}', '0', '0');
         return $result;
     }
 
