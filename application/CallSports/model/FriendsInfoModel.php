@@ -68,8 +68,13 @@ class FriendsInfoModel
     public function searchFriend($requestUserId)
     {
           $tableName="all_users";
-          $result=Db::table($tableName)->where('user_id',$requestUserId)->find();
-          return $result;
+          $result=Db::query("select user_id,nick_name,email,sex,phone_num,protrait from $tableName where user_id=?",[$requestUserId]);
+//          $result=Db::table($tableName)->where('user_id',$requestUserId)->column(['user_id','nick_name','email','sex','phone_num','protrait']);
+         if(count($result)>0)
+         {
+             $result[0]['result']='success';
+         }
+         return $result[0];
 
     }
 

@@ -69,14 +69,14 @@ class FriendService
     public function searchFriend($requestUserId)
     {
         $friendsInfoModel = new FriendsInfoModel();
-        $searchResult=$friendsInfoModel->requestFriend($requestUserId);
+        $searchResult=$friendsInfoModel->searchFriend($requestUserId);
         if($searchResult==null)
         {
             return ['result'=>'not found'];
         }
         else
         {
-           return ['result'=>$searchResult];
+             return $searchResult;
         }
     }
 
