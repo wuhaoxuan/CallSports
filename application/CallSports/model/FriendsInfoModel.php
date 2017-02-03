@@ -83,4 +83,18 @@ class FriendsInfoModel
 
     }
 
+    public function getUserInfo($useId)
+    {
+        $tableName=\Constant::ALL_USERS_TABLENAME;
+        $result=Db::table($tableName)->where('user_id',$useId)->find();
+        if(!empty($result))
+        {
+            return ['result'=>'success','accontinfo'=>$result];
+        }
+        else
+        {
+            return['result'=>'failed'];
+        }
+    }
+
 }

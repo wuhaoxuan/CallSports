@@ -2,7 +2,7 @@
 namespace app\callsports\controller;
 require_once('../extend/imserver/api/rongcloud.php');
 use app\callsports\model\FriendsInfoModel;
-use think\Request;
+use imserver\api\RongManager;
 
 class FriendService
 {
@@ -50,10 +50,15 @@ class FriendService
     public function publishPrivate($userId, $requestUserId)
     {
         // 发送单聊消息方法（一个用户向另外一个用户发送消息，单条消息最大 128k。每分钟最多发送 6000 条信息，每次发送用户上限为 1000 人，如：一次发送 1000 人时，示为 1000 条消息。）
-        $rongManager = new \RongManager();
+        $rongManager = new RongManager();
         $message = "你们是朋友了，现在你们可以聊天了";
-        $rongManager->publishPrivate($userId, $requestUserId, 'RC:InfoNtf', "{\"message\":\"$message\",\"extra\":\"helloExtra\",\"duration\":20}", 'thisisapush', '{\"pushData\":\"$message\"}', '4', '0', '0', '0');
-        $rongManager->publishPrivate($requestUserId, $userId, 'RC:InfoNtf', "{\"message\":\"$message\",\"extra\":\"helloExtra\",\"duration\":20}", 'thisisapush', '{\"pushData\":\"$message\"}', '4', '0', '0', '0');
+        $rongManager->publishPrivate($userId, $requestUserId, 'RC:TxtMsg',$message,'', $message, $message, '4', '0', '0', '0');
+        $rongManager->publishPrivate($requestUserId, $userId, 'RC:TxtMsg',$message,'', $message, $message, '4', '0', '0', '0');
+
+//        $result =$rongManager->rongCloud->message()->publishPrivate('d', 'e', 'RC:TxtMsg',"{\"content\":\"hello\",\"extra\":\"helloExtra\"}", 'thisisapush', '{\"pushData\":\"hello\"}', '4', '0', '0', '0');
+//        echo "publishPrivate    ";
+//        print_r($result);
+//        echo "\n";
     }
 
     public function requestFriend($userId, $requestUserId, $message)
@@ -61,9 +66,9 @@ class FriendService
 
         $friendsInfoModel = new FriendsInfoModel();
         $result = $friendsInfoModel->requestFriend($userId, $requestUserId, $message);
-//        $rongManager=new \RongManager();
+        $rongManager=new RongManager();
          // 发送系统消息方法（一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。每秒钟最多发送 100 条消息，每次最多同时向 100 人发送，如：一次发送 100 人时，示为 100 条消息。）
-//        $messageResult = $rongManager->PublishSystem($userId, $requestUserId, 'RC:ContactNtf',"{\"content\":\"$message\",\"extra\":\"helloExtra\"}", 'thisisapush', '{\"pushData\":\"$message\"}', '0', '0');
+        $messageResult = $rongManager->publishSystem($userId, $requestUserId, 'RC:InfoNtf',"{\"content\":\"$message\",\"extra\":\"helloExtra\"}", 'thisisapush', "{\"pushData\":\"$message\"}", '0', '0');
         return $result;
     }
 
@@ -81,4 +86,14 @@ class FriendService
         }
     }
 
+    public function getUserInfo($useId)
+    {
+        $friendsInfoModel = new FriendsInfoModel();
+       return $friendsInfoModel->getUserInfo($useId);
+    }
+
+    public function friendTest($userId, $requestUserId)
+    {
+        $this->publishPrivate($userId,$requestUserId);
+    }
 }

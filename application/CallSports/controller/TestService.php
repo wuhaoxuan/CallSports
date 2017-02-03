@@ -2,6 +2,7 @@
   namespace app\callsports\controller;
 
   use app\CallSports\model\TestModel;
+  use imserver\api\TestManager;
 
   class TestService
   {
@@ -15,6 +16,12 @@
      {
          $model=new TestModel();
          $model->searchAndUpdate();
+     }
+
+     public function showMethod()
+     {
+         $testManager=new TestManager();
+         $testManager->showMethod();
      }
 
   }
