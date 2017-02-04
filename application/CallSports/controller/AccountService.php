@@ -1,6 +1,7 @@
 <?php
   namespace app\callsports\controller;
   use app\callsports\model\AccountModel;
+  use think\Db;
   use think\Request;
 
   class AccountService
@@ -29,8 +30,23 @@
       public function login($user_id,$password)
       {
 
-          $accountModel=new AccountModel();
-          $loginResult=$accountModel->login($user_id,$password);
-          return $loginResult;
+          $databaseName=\Constant::DATABASE_NAME;
+          $tableName=\Constant::ALL_USERS_TABLE;
+          $isTableExists="SELECT * FROM information_schema.tables WHERE table_schema = \"$databaseName\" AND table_name = \"$tableName\"";
+          $result=Db::execute($isTableExists);
+//          echo $isTableExists."\n";
+//          echo $result;
+          if($result>0)
+          {
+//              echo "big 0";
+              $accountModel=new AccountModel();
+              $loginResult=$accountModel->login($user_id,$password);
+              return $loginResult;
+          }
+          else
+          {
+              return ['result'=>\Constant::USER_NOT_EXISTS];
+          }
+
       }
   }

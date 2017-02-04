@@ -17,7 +17,7 @@ class ActivityService
 
     private function createAllActivitiesTable()
     {
-        $createBtn="create table IF NOT EXISTS all_activities(user_id VARCHAR(30),uuid TEXT,name TEXT,time VARCHAR(30),address TEXT,latitude DOUBLE,longitude DOUBLE,total_num INT ,cost VARCHAR(10),introduce TEXT,now_num INT,members TEXT)";
+        $createBtn="create table IF NOT EXISTS all_activities(user_id VARCHAR(30),nick_name VARCHAR(30),uuid TEXT,name TEXT,time VARCHAR(30),address TEXT,latitude DOUBLE,longitude DOUBLE,total_num INT ,cost VARCHAR(10),introduce TEXT,now_num INT,members TEXT)";
         Db::execute($createBtn);
     }
 

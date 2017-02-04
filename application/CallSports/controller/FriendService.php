@@ -1,19 +1,18 @@
 <?php
 namespace app\callsports\controller;
-require_once('../extend/imserver/api/rongcloud.php');
 use app\callsports\model\FriendsInfoModel;
 use imserver\api\RongManager;
 
 class FriendService
 {
-    private $appKey = 'lmxuhwagxh61d';
-    private $appSecret = 'MADzJImCROOxS2';
-    private $rongCloud;
+
     protected $table = "ww_friendsinfo";
+    private $rongManager;
 
     public function __construct()
     {
-        $this->rongCloud = new \RongCloud($this->appKey, $this->appSecret);
+
+        $this->rongManager=new RongManager();
     }
 
     public function getToken($userId, $userName, $portraitUri = null)
@@ -21,10 +20,7 @@ class FriendService
         if (empty($portraitUri)) {
             $portraitUri = 'http://www.rongcloud.cn/images/logo.png';
         }
-        // 获取 Token 方法
-        $result = $this->rongCloud->User()->getToken($userId, $userName, $portraitUri);
-        print_r($result);
-        echo "\n";
+        return $this->rongManager->getToken($userId,$userName,$portraitUri);
     }
 
     public function getFriendsInfo($userId)
@@ -47,13 +43,12 @@ class FriendService
         }
     }
 
-    public function publishPrivate($userId, $requestUserId)
+    public function publishPrivate($userId, $requestUserId,$message)
     {
         // 发送单聊消息方法（一个用户向另外一个用户发送消息，单条消息最大 128k。每分钟最多发送 6000 条信息，每次发送用户上限为 1000 人，如：一次发送 1000 人时，示为 1000 条消息。）
-        $rongManager = new RongManager();
-        $message = "你们是朋友了，现在你们可以聊天了";
-        $rongManager->publishPrivate($userId, $requestUserId, 'RC:TxtMsg',$message,'', $message, $message, '4', '0', '0', '0');
-        $rongManager->publishPrivate($requestUserId, $userId, 'RC:TxtMsg',$message,'', $message, $message, '4', '0', '0', '0');
+//        $message = "你们是朋友了，现在你们可以聊天了";
+        $this->rongManager->publishPrivate($userId, $requestUserId, 'RC:TxtMsg',$message,'', $message, $message, '4', '0', '0', '0');
+        $this->rongManager->publishPrivate($requestUserId, $userId, 'RC:TxtMsg',$message,'', $message, $message, '4', '0', '0', '0');
 
 //        $result =$rongManager->rongCloud->message()->publishPrivate('d', 'e', 'RC:TxtMsg',"{\"content\":\"hello\",\"extra\":\"helloExtra\"}", 'thisisapush', '{\"pushData\":\"hello\"}', '4', '0', '0', '0');
 //        echo "publishPrivate    ";
@@ -65,10 +60,11 @@ class FriendService
     {
 
         $friendsInfoModel = new FriendsInfoModel();
-        $result = $friendsInfoModel->requestFriend($userId, $requestUserId, $message);
-        $rongManager=new RongManager();
+        $result = $friendsInfoModel->requestFriend($userId, $requestUserId, $message,$extra='');
+        $pushContent="$userId"." 请求添加好友";
+        $extra=\Constant::FRIEND_REQUEST;
          // 发送系统消息方法（一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。每秒钟最多发送 100 条消息，每次最多同时向 100 人发送，如：一次发送 100 人时，示为 100 条消息。）
-        $messageResult = $rongManager->publishSystem($userId, $requestUserId, 'RC:InfoNtf',"{\"content\":\"$message\",\"extra\":\"helloExtra\"}", 'thisisapush', "{\"pushData\":\"$message\"}", '0', '0');
+        $messageResult = $this->rongManager->publishSystem($userId, $requestUserId, \Constant::FRIEND_REQUEST,$message, $extra, $pushContent, $message, 0, 0);
         return $result;
     }
 
@@ -94,6 +90,11 @@ class FriendService
 
     public function friendTest($userId, $requestUserId)
     {
-        $this->publishPrivate($userId,$requestUserId);
+//        $this->rongManager->publishPrivate($userId,$requestUserId,\Constant::FRIEND_REQUEST,"hello world");
+//        $this->publishPrivate($userId,$requestUserId,'你们是朋友了');
+//        $rongManager = new RongManager();
+//        $message='You are friends';
+//        $rongManager->publishSystem($userId, $requestUserId, 'RC:InfoNtf',"{\"content\":\"$message\",\"extra\":\"helloExtra\"}", 'thisisapush', "{\"pushData\":\"$message\"}", '0', '0');
+
     }
 }

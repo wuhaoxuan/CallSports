@@ -11,10 +11,10 @@ class ActivityModel extends Model
     protected $table = "all_activities";
 
 
-    public function publish($user_id, $name, $time, $address, $latitude, $longitude, $total_num, $cost, $introduce)
+    public function publish($user_id, $nickName,$name, $time, $address, $latitude, $longitude, $total_num, $cost, $introduce)
     {
         $uuid = $this->create_uuid();
-        $insertData = ['user_id' => $user_id, 'uuid' => $uuid, 'name' => $name, 'time' => $time, 'address' => $address, 'latitude' => $latitude, 'longitude' => $longitude, 'total_num' => $total_num, 'cost' => $cost, 'introduce' => $introduce, 'now_num' => 1, 'members' => $user_id];
+        $insertData = ['user_id' => $user_id, 'nick_name'=>$nickName,'uuid' => $uuid, 'name' => $name, 'time' => $time, 'address' => $address, 'latitude' => $latitude, 'longitude' => $longitude, 'total_num' => $total_num, 'cost' => $cost, 'introduce' => $introduce, 'now_num' => 1, 'members' => $user_id];
         $this->data($insertData);
         $allInsertResult = $this->save();
         if (empty($allInsertResult))
