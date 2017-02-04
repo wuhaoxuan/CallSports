@@ -1,0 +1,44 @@
+{            
+   "base":
+   {
+      
+      "paths":
+      [
+          {
+            "tag":"localhost",
+            "url":"http://10.10.20.158"
+          }
+         
+      ], 
+
+      "params":
+      [
+         {
+            "tag":"sporttype",
+            "data":
+            {
+              "type":[
+                   {"name":"足球"},
+                   {"name":"篮球"},
+                   {"name":"台球"}
+                  ]
+            }
+         },
+
+         {
+           "tag":"paytype",
+           "data":
+           {
+               "type":
+                [
+                  {"name":"均摊"},
+                  {"name":"发起者买单"},
+                  {"name":"参与者买单"}
+                ],
+                "test":"hello"
+           }  
+         }
+         
+      ]
+   }
+}
