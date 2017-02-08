@@ -27,7 +27,7 @@ class ActivityModel extends Model
             $sigInsertResult = Db::table($user_id . "_activity")->insert($insertData);
             if ($sigInsertResult)
             {
-                return ['result' => \Constant::SUCCESS];
+                return ['result' => \Constant::SUCCESS,'uuid'=>$uuid];
             } else
             {
                 return ['result' => \Constant::FAILED];
