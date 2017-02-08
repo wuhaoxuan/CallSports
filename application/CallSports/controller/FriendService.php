@@ -2,6 +2,8 @@
 namespace app\callsports\controller;
 use app\callsports\model\FriendsInfoModel;
 use imserver\api\RongManager;
+use think\Db;
+use think\Exception;
 
 class FriendService
 {
@@ -29,18 +31,20 @@ class FriendService
         return $friendsInfoModel->getFriendsInfo($userId);
     }
 
-    public function modifyFriendState($userId, $requestUserId, $accept)
+    public function modifyFriendState($fromUserId, $toUserId, $accept)
     {
-        $friendsInfoModel = new FriendsInfoModel($userId);
-        $result = $friendsInfoModel->modifyFriendState($userId, $requestUserId, $accept);
+        $friendsInfoModel = new FriendsInfoModel($fromUserId);
+        $result = $friendsInfoModel->modifyFriendState($fromUserId, $toUserId, $accept);
         if (!empty($result)) {
             $result = $result['result'];
-            if ("accept" == $result) {
-                $this->publishPrivate($userId, $requestUserId);
-            } else if ("deny" == $result) {
+            if (\Constant::FRIEND_STATE_FRIEND == $result) {
+                $message="我已经同意了你的请求，现在我们已经是朋友了。";
+                $this->publishPrivate($toUserId,$fromUserId,$message);
+            } else if (\Constant::FRIEND_STATE_REQUEST_DENY == $result) {
 
             }
         }
+        return $result;
     }
 
     public function publishPrivate($userId, $requestUserId,$message)
@@ -60,11 +64,10 @@ class FriendService
     {
 
         $friendsInfoModel = new FriendsInfoModel();
-        $result = $friendsInfoModel->requestFriend($userId, $requestUserId, $message,$extra='');
+        $result = $friendsInfoModel->requestFriend($userId, $requestUserId, $message);
         $pushContent="$userId"." 请求添加好友";
-        $extra=\Constant::FRIEND_REQUEST;
          // 发送系统消息方法（一个用户向一个或多个用户发送系统消息，单条消息最大 128k，会话类型为 SYSTEM。每秒钟最多发送 100 条消息，每次最多同时向 100 人发送，如：一次发送 100 人时，示为 100 条消息。）
-        $messageResult = $this->rongManager->publishSystem($userId, $requestUserId, \Constant::FRIEND_REQUEST,$message, $extra, $pushContent, $message, 0, 0);
+        $messageResult = $this->rongManager->publishSystem($userId, $requestUserId, \Constant::FRIEND_REQUEST_TYPE,$message,'', $pushContent, $message, '0', '0');
         return $result;
     }
 
@@ -82,19 +85,15 @@ class FriendService
         }
     }
 
-    public function getUserInfo($useId)
+    public function getUserInfo($userId)
     {
         $friendsInfoModel = new FriendsInfoModel();
-       return $friendsInfoModel->getUserInfo($useId);
+       return $friendsInfoModel->getUserInfo($userId);
     }
 
-    public function friendTest($userId, $requestUserId)
+    public function test()
     {
-//        $this->rongManager->publishPrivate($userId,$requestUserId,\Constant::FRIEND_REQUEST,"hello world");
-//        $this->publishPrivate($userId,$requestUserId,'你们是朋友了');
-//        $rongManager = new RongManager();
-//        $message='You are friends';
-//        $rongManager->publishSystem($userId, $requestUserId, 'RC:InfoNtf',"{\"content\":\"$message\",\"extra\":\"helloExtra\"}", 'thisisapush', "{\"pushData\":\"$message\"}", '0', '0');
-
+  
+       $this->publishPrivate("e","d","test");
     }
 }

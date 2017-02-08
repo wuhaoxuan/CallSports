@@ -6,11 +6,11 @@ use think\Db;
 class ActivityService
 {
 
-    public function publish($user_id,$name,$time,$address,$latitude,$longitude,$total_num,$cost,$introduce)
+    public function publish($user_id,$nickName,$name,$time,$address,$latitude,$longitude,$total_num,$cost,$introduce)
     {
         $this->createAllActivitiesTable();
         $activityModel=new ActivityModel();
-        $result=$activityModel->publish($user_id,$name,$time,$address,$latitude,$longitude,$total_num,$cost,$introduce);
+        $result=$activityModel->publish($user_id,$nickName,$name,$time,$address,$latitude,$longitude,$total_num,$cost,$introduce);
         return $result;
     }
 

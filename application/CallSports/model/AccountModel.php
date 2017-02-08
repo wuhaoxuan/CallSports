@@ -12,22 +12,19 @@
       {
           //create all_users table;
           $alluserTableName=\Constant::ALL_USERS_TABLE;
-          $friendsSuffix=\Constant::FRIENDS_SUFFIX;
           $activitySuffix=\Constant::ACTIVITY_SUFFIX;
           $createAllUsersTable="create table if NOT EXISTS  $alluserTableName (user_id varchar(30)  not null primary key,password varchar(40) not null,nick_name varchar(30) not null,email  varchar(60)  not null,sex varchar(5) not null,
                                           phone_num varchar(11) not null,protrait text  not null,reg_date TIMESTAMP)";
           Db::execute($createAllUsersTable);
 
-          $createFriendInfoTable="create table if NOT EXISTS $user_id"."$friendsSuffix (id int not null primary key auto_increment,user_id varchar(30) not null,nick_name varchar(30),email varchar(60),protrait text  not null,state int,
-                                          message text)";
-          Db::execute($createFriendInfoTable);
+
+//          $createFriendInfoTable="create table if NOT EXISTS $user_id"."$friendsSuffix (id int not null primary key auto_increment,user_id varchar(30) not null,nick_name varchar(30),email varchar(60),protrait text  not null,state int,
+//                                          message text)";
+//          Db::execute($createFriendInfoTable);
 
           $createActivityTable="create table if NOT EXISTS $user_id"."$activitySuffix (id int not null primary key AUTO_INCREMENT,uuid text not null,name text,type  int,members text,now_num int)";
           Db::execute($createActivityTable);
 
-//          $test=new RegisterNewModel();
-//          $test->data(['user_id'=>'223','password'=>'132231','nick_name'=>'li','email'=>'13222','sex'=>'male','phone_num'=>'111111','protrait'=>'123']);
-//          $test->save();
           $result=self::where('user_id',$user_id)->find();
           if(empty($result))
           {

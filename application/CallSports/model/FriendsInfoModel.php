@@ -16,8 +16,16 @@ class FriendsInfoModel
     public function getFriendsInfo($userId)
     {
 
-        $result = Db::query("select * from $userId"."_friendsinfo");
-        $result = array("friendsinfo" => $result);
+        $result=Db::table($userId.\Constant::FRIENDS_SUFFIX)->find();
+//        $result = Db::query("select * from $userId"."_friendsinfo");
+        if($result!=null)
+        {
+            $result = array("friendsinfo" => array($result));
+        }
+        else
+        {
+            $result = array("friendsinfo" =>$result);
+        }
         return $result;
     }
 
@@ -25,24 +33,27 @@ class FriendsInfoModel
     public function modifyFriendState($userId, $requestUserId, $accept)
     {
         $isExists=Db::execute("show tables like \"$requestUserId"."_friendsinfo\"");
+        $fromTable=$userId.\Constant::FRIENDS_SUFFIX;
+        $toTable=$requestUserId.\Constant::FRIENDS_SUFFIX;
         if ($accept)
         {
-            Db::table($this->tableName)->where('user_id', $requestUserId)->update(['state' => 1]);
+
+            Db::table($fromTable)->where('user_id', $requestUserId)->update(['state' => \Constant::FRIEND_STATE_FRIEND]);
             if($isExists)
             {
-                Db::table($requestUserId . "_friendsinfo")->where('user_id', $userId)->update(['state' => 1]);
+                Db::table($toTable)->where('user_id', $userId)->update(['state' => \Constant::FRIEND_STATE_FRIEND]);
             }
-            return ['result'=>'accept'];
+            return ['result'=>\Constant::FRIEND_STATE_FRIEND];
         }
 
          else
          {
-             Db::table($this->tableName)->where('user_id', $requestUserId)->update(['state' => 5]);
+             Db::table($fromTable)->where('user_id', $requestUserId)->update(['state' =>\Constant::FRIEND_STATE_REQUEST_DENYED]);
              if($isExists)
              {
-                 Db::table($requestUserId . "_friendsinfo")->where('user_id', $userId)->update(['state' => 4]);
+                 Db::table($toTable)->where('user_id', $userId)->update(['state' =>\Constant::FRIEND_STATE_REQUEST_DENY]);
              }
-             return ['result'=>'deny'];
+             return ['result'=>\Constant::FRIEND_STATE_REQUEST_DENY];
          }
     }
 
@@ -50,23 +61,38 @@ class FriendsInfoModel
     public function requestFriend($userId,$requestUserId,$message)
     {
         //insert data in user
+        $dbHelper=new \DbHelper();
+        $dbHelper->lockTable($userId.\Constant::FRIENDS_SUFFIX);
+        $dbHelper->lockTable($requestUserId.\Constant::FRIENDS_SUFFIX);
+        $state=Db::table($userId.\Constant::FRIENDS_SUFFIX)->where('user_id',$requestUserId)->value('state');
+        if(\Constant::FRIEND_STATE_REQUEST==$state)
+        {
+            return ["result"=>\Constant::REQUEST_HAS_SENT];
+        }
+        else if(\Constant::FRIEND_STATE_FRIEND==$state)
+        {
+            return ['result'=>\Constant::ALREADY_FRIEND];
+        }
         $email=Db::table('all_users')->where('user_id',$requestUserId)->value('email');
         $protrait=Db::table('all_users')->where('user_id',$requestUserId)->value('protrait');
-        $insertData=['user_id'=>$requestUserId,'state'=>2,'message'=>$message,'email'=>$email,'protrait'=>$protrait];
-        $userResult=Db::table($userId."_friendsinfo")->insert($insertData);
+        $nickName=Db::table('all_users')->where('user_id',$requestUserId)->value('nick_name');
+        $insertData=['nick_name'=>$nickName,'user_id'=>$requestUserId,'state'=>\Constant::FRIEND_STATE_REQUEST,'message'=>$message,'email'=>$email,'protrait'=>$protrait];
+        $userResult=Db::table($userId.\Constant::FRIENDS_SUFFIX)->insert($insertData);
 
         //insert data in requestUser
         $email=Db::table('all_users')->where('user_id',$userId)->value('email');
         $protrait=Db::table('all_users')->where('user_id',$userId)->value('protrait');
-        $insertData=['user_id'=>$userId,'state'=>3,'message'=>$message,'email'=>$email,'protrait'=>$protrait];
-        $requestUserResult=Db::table($requestUserId.'_friendsinfo')->insert($insertData);
+        $nickName=Db::table('all_users')->where('user_id',$userId)->value('nick_name');
+        $insertData=['nick_name'=>$nickName,'user_id'=>$userId,'state'=>\Constant::FRIEND_STATE_REQUESTED,'message'=>$message,'email'=>$email,'protrait'=>$protrait];
+        $requestUserResult=Db::table($requestUserId.\Constant::FRIENDS_SUFFIX)->insert($insertData);
+        $dbHelper->unlockTable();
         if($userResult && $requestUserResult)
         {
-            return ["result"=>"success"];
+            return ["result"=>\Constant::SUCCESS];
         }
         else
         {
-            return ['result'=>'failed'];
+            return ['result'=>\Constant::FAILED];
         }
     }
 
@@ -83,10 +109,10 @@ class FriendsInfoModel
 
     }
 
-    public function getUserInfo($useId)
+    public function getUserInfo($userId)
     {
         $tableName=\Constant::ALL_USERS_TABLENAME;
-        $result=Db::table($tableName)->where('user_id',$useId)->find();
+        $result=Db::table($tableName)->where('user_id',$userId)->find();
         if(!empty($result))
         {
             return ['result'=>'success','accontinfo'=>$result];

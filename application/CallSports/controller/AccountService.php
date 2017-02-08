@@ -18,7 +18,7 @@
           $user_id=$this->request->post('user_id');
           $password=$this->request->post('password');
           $nick_name=$this->request->post('nick_name');
-          $email=$this->request->post('emial');
+          $email=$this->request->post('email');
           $sex=$this->request->post('sex');
           $phone_num=$this->request->post('phone_num');
           $head_protrait=$this->request->post('head_protrait');
