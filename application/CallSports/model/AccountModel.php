@@ -22,7 +22,7 @@
 //                                          message text)";
 //          Db::execute($createFriendInfoTable);
 
-          $createActivityTable="create table if NOT EXISTS $user_id"."$activitySuffix (id int not null primary key AUTO_INCREMENT,uuid text not null,name text,type  int,members text,now_num int)";
+          $createActivityTable="create table if NOT EXISTS $user_id"."$activitySuffix (id int not null primary key AUTO_INCREMENT,uuid text not null,name text,type  int,members text,now_num int,INDEX(uuid))";
           Db::execute($createActivityTable);
 
           $result=self::where('user_id',$user_id)->find();

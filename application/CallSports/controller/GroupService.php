@@ -15,8 +15,10 @@
 
       public function createGroup($userId,$groupId,$groupName)
       {
+          $groupId='100';
           $this->rongManager->createGroup($userId,$groupId,$groupName);
           $message="你创建了".$groupName."群。";
+
 //          echo "use id is $userId";
           $result=$this->rongManager->publicGroupMessage($userId,$groupId,'RC:InfoNtf',$message,$message,$message);
           return $result;

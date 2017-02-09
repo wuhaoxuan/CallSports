@@ -3,6 +3,8 @@
 
   use app\CallSports\model\TestModel;
   use imserver\api\TestManager;
+  use think\Db;
+  use think\Exception;
 
   class TestService
   {
@@ -23,5 +25,62 @@
          $testManager=new TestManager();
          $testManager->showMethod();
      }
+
+     public function test()
+     {
+
+
+         Db::startTrans();
+         try
+         {
+             $result=Db::table("test")->lock(true)->where("dd",2)->find();
+             if($result!=null)
+             {
+                 Db::table("test")->insert(['dd'=>1000]);
+             }
+//             $sql = "INSERT INTO test (dd) VALUES (136)";
+//             $querySql="SELECT * FROM test FOR UPDATE";
+//             Db::execute($querySql);
+//             Db::execute($sql);
+             echo "insert success";
+             sleep(10);
+             Db::commit();
+         }
+         catch(Exception $e)
+         {
+             echo "error";
+             Db::rollback();
+         }
+
+     }
+
+      public function test2()
+      {
+
+
+          Db::startTrans();
+          try
+          {
+              $result=Db::table("test")->lock(true)->where("dd",2)->find();
+              if($result!=null)
+              {
+
+                  Db::table("test")->insert(['dd'=>1002]);
+              }
+//             $sql = "INSERT INTO test (dd) VALUES (136)";
+//             $querySql="SELECT * FROM test FOR UPDATE";
+//             Db::execute($querySql);
+//             Db::execute($sql);
+              echo "insert success";
+//              sleep(10);
+              Db::commit();
+          }
+          catch(Exception $e)
+          {
+              echo "error";
+              Db::rollback();
+          }
+
+      }
 
   }

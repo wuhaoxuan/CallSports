@@ -3,18 +3,19 @@ namespace app\CallSports\model;
 
 
 use think\Db;
+use think\Exception;
 use think\Model;
 
 
 class ActivityModel extends Model
 {
-    protected $table = "all_activities";
+    protected $table = \Constant::ALL_ACTIVITIES_TABLE;
 
 
     public function publish($user_id, $nickName,$name, $time, $address, $latitude, $longitude, $total_num, $cost, $introduce)
     {
         $uuid = $this->create_uuid();
-        $insertData = ['user_id' => $user_id, 'nick_name'=>$nickName,'uuid' => $uuid, 'name' => $name, 'time' => $time, 'address' => $address, 'latitude' => $latitude, 'longitude' => $longitude, 'total_num' => $total_num, 'cost' => $cost, 'introduce' => $introduce, 'now_num' => 1, 'members' => $user_id];
+        $insertData = ['user_id' => $user_id, 'nick_name'=>$nickName,'uuid' => $uuid, 'name' => $name, 'time' => $time, 'address' => $address, 'latitude' => $latitude, 'longitude' => $longitude, 'total_num' => $total_num, 'cost' => $cost, 'introduce' => $introduce, 'now_num' => 1];
         $this->data($insertData);
         $allInsertResult = $this->save();
         if (empty($allInsertResult))
@@ -23,7 +24,7 @@ class ActivityModel extends Model
         } else
         {
 
-            $insertData = ['uuid' => $uuid, 'name' => $name, 'type' => \Constant::ACTIVITY_CREATE, 'members' => $user_id . ":" . \Constant::ACTIVITY_HAS_REGISTERED];
+            $insertData = ['uuid' => $uuid, 'name' => $name, 'type' => \Constant::ACTIVITY_CREATE, 'members' => $user_id];
             $sigInsertResult = Db::table($user_id . "_activity")->insert($insertData);
             if ($sigInsertResult)
             {
@@ -38,33 +39,42 @@ class ActivityModel extends Model
 
     public function joinAct($creater_id, $user_id, $uuid)
     {
-        $item = self::where('uuid', $uuid)->find();
-        if (empty($item))
+        Db::startTrans();
+        try
         {
-            return ['result' => \Constant::NOT_EXISTS];
-        } else
-        {
-            $members = $item->getAttr('members');
-            if ($this->containUserId($user_id, $members))
+            $item = self::where('uuid', $uuid)->lock(true)->find();
+            if (empty($item))
             {
-                return ['result' => \Constant::HAS_JOINED];
-            }
-            $data = ['members' => $item->getAttr('members') . ",$user_id" . ":" . \Constant::ACTIVITY_APPLYING];
-            $result = $item->save($data);
-            if (empty($result))
-            {
-                return ['result' => \Constant::FAILED];
+                return ['result' => \Constant::NOT_EXISTS];
             } else
             {
-                $result = Db::table($creater_id . "_activity")->where('uuid', $uuid)->update(['members' => $members . ",$user_id" . ":" . \Constant::ACTIVITY_APPLYING]);
-                if ($result)
+                $members = $item->getAttr('members');
+                if ($this->containUserId($user_id, $members))
                 {
-                    return ['result' => \Constant::SUCCESS];
-                } else
+                    return ['result' => \Constant::HAS_JOINED];
+                }
+                $data = ['members' => $item->getAttr('members') . ",$user_id"];
+                $result = $item->save($data);
+                if (empty($result))
                 {
                     return ['result' => \Constant::FAILED];
+                } else
+                {
+                    $result = Db::table($creater_id . "_activity")->lock(true)->where('uuid', $uuid)->update(['members' => $members . ",$user_id" . ":" . \Constant::ACTIVITY_APPLYING]);
+                    if ($result)
+                    {
+                        return ['result' => \Constant::SUCCESS];
+                    } else
+                    {
+                        return ['result' => \Constant::FAILED];
+                    }
                 }
             }
+        }
+        catch(Exception $e)
+        {
+            Db::rollback();
+            return ['result' => \Constant::FAILED];
         }
     }
 
