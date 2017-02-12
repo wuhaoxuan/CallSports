@@ -47,6 +47,23 @@
           {
               return ['result'=>\Constant::USER_NOT_EXISTS];
           }
+      }
 
+      public function loginByToken($token)
+      {
+          $databaseName=\Constant::DATABASE_NAME;
+          $tableName=\Constant::ALL_USERS_TABLE;
+          $isTableExists="SELECT * FROM information_schema.tables WHERE table_schema = \"$databaseName\" AND table_name = \"$tableName\"";
+          $result=Db::execute($isTableExists);
+          if($result>0)
+          {
+              $accountModel=new AccountModel();
+              $loginResult=$accountModel->loginByToken($token);
+              return $loginResult;
+          }
+          else
+          {
+              return ['result'=>\Constant::USER_NOT_EXISTS];
+          }
       }
   }

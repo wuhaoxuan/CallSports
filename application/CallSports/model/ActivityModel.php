@@ -98,9 +98,7 @@ class ActivityModel extends Model
 
     public function test()
     {
-        $pattern = "/[a-z]/";
-        $text = "nihao,n";
-        $result = preg_match($pattern, $text);
+        $result=$this->create_uuid();
         echo $result;
     }
 }

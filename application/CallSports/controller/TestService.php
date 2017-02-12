@@ -26,31 +26,32 @@
          $testManager->showMethod();
      }
 
-     public function test()
+     public function test($par1,$par2)
      {
 
-
-         Db::startTrans();
-         try
-         {
-             $result=Db::table("test")->lock(true)->where("dd",2)->find();
-             if($result!=null)
-             {
-                 Db::table("test")->insert(['dd'=>1000]);
-             }
-//             $sql = "INSERT INTO test (dd) VALUES (136)";
-//             $querySql="SELECT * FROM test FOR UPDATE";
-//             Db::execute($querySql);
-//             Db::execute($sql);
-             echo "insert success";
-             sleep(10);
-             Db::commit();
-         }
-         catch(Exception $e)
-         {
-             echo "error";
-             Db::rollback();
-         }
+         $this->timeStamp($par2);
+//         Db::startTrans();
+//         try
+//         {
+//             $result=Db::table("test")->lock(true)->where("dd",2)->find();
+//             if($result!=null)
+//             {
+//                 Db::table("test")->insert(['dd'=>1000]);
+//             }
+////             $sql = "INSERT INTO test (dd) VALUES (136)";
+////             $querySql="SELECT * FROM test FOR UPDATE";
+////             Db::execute($querySql);
+////             Db::execute($sql);
+//             echo "insert success";
+//             sleep(10);
+//             Db::commit();
+//         }
+//         catch(Exception $e)
+//         {
+//             echo "error";
+//             Db::rollback();
+//         }
+         phpinfo();
 
      }
 
@@ -81,6 +82,14 @@
               Db::rollback();
           }
 
+      }
+
+      public function timeStamp($par='',$par2)
+      {
+
+          $data=time();
+          $med=md5("d"."111111".$data);
+          echo $med;
       }
 
   }
