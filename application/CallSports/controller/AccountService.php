@@ -66,4 +66,11 @@
               return ['result'=>\Constant::USER_NOT_EXISTS];
           }
       }
+
+
+      public function test()
+      {
+          $activityModel=new AccountModel();
+          $activityModel->test();
+      }
   }

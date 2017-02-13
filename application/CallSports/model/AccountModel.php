@@ -116,4 +116,11 @@
           return $token;
       }
 
+
+      public function test()
+      {
+//          $result=Db::table($this->table)->find();
+          $result=self::where('user_id','>=',0)->select();
+          echo json_encode($result);
+      }
   }

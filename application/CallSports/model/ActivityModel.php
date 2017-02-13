@@ -96,9 +96,16 @@ class ActivityModel extends Model
         return $result;
     }
 
+    public function getAllActInfo($start,$offset)
+    {
+        $result=self::where('id','>=',$start)->limit($offset)->select();
+        return $result;
+    }
+
     public function test()
     {
-        $result=$this->create_uuid();
+        $model=new ActivityModel();
+        $result=$model->where('id','>',0)->limit(1)->find();
         echo $result;
     }
 }
