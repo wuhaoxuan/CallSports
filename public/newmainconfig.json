@@ -6,51 +6,55 @@
     [
       {
         "tag":"localhost",
-        "url":"http://192.168.1.103"
+        "url":"http://10.10.20.158"
       },
       {
         "tag":"friensservice",
-        "url":"http://192.168.1.103/public/index.php/callsports/friendservice"
+        "url":"http://10.10.20.158/public/index.php/callsports/friendservice"
       },
       {
         "tag":"friendsinfo",
-        "url":"http://192.168.1.103/public/index.php/callsports/friendservice/getFriendsInfo"
+        "url":"http://10.10.20.158/public/index.php/callsports/friendservice/getFriendsInfo"
       },
       {
         "tag":"register",
-        "url":"http://192.168.1.103/public/index.php/callsports/accountservice/register"
+        "url":"http://10.10.20.158/public/index.php/callsports/accountservice/register"
       },
       {
         "tag":"login",
-        "url":"http://192.168.1.103/public/index.php/callsports/accountservice/login"
+        "url":"http://10.10.20.158/public/index.php/callsports/accountservice/login"
       },
       {
         "tag":"publish",
-        "url":"http://192.168.1.103/public/index.php/callsports/activityservice/publish"
+        "url":"http://10.10.20.158/public/index.php/callsports/activityservice/publish"
       },
       {
         "tag":"searchfriend",
-        "url":"http://192.168.1.103/public/index.php/callsports/friendservice/searchFriend"
+        "url":"http://10.10.20.158/public/index.php/callsports/friendservice/searchFriend"
       },
       {
         "tag":"addfriend",
-        "url":"http://192.168.1.103/public/index.php/callsports/friendservice/requestFriend"
+        "url":"http://10.10.20.158/public/index.php/callsports/friendservice/requestFriend"
       },
       {
         "tag":"getuserinfo",
-        "url":"http://192.168.1.103/public/index.php/callsports/friendservice/getUserInfo"
+        "url":"http://10.10.20.158/public/index.php/callsports/friendservice/getUserInfo"
       },
       {
         "tag":"modifyfriendstate",
-        "url":"http://192.168.1.103/public/index.php/callsports/friendservice/modifyFriendState"
+        "url":"http://10.10.20.158/public/index.php/callsports/friendservice/modifyFriendState"
       },
       {
         "tag":"creategroup",
-        "url":"http://192.168.1.103/public/index.php/callsports/groupservice/createGroup"
+        "url":"http://10.10.20.158/public/index.php/callsports/groupservice/createGroup"
       },
       {
         "tag":"syncgroup",
-        "url":"http://192.168.1.103/public/index.php/callsports/groupservice/syncGroup"
+        "url":"http://10.10.20.158/public/index.php/callsports/groupservice/syncGroup"
+      },
+      {
+        "tag":"allactivities",
+        "url":"http://10.10.20.158/public/index.php/callsports/activityservice/getAllActInfo"
       }
 
     ],
