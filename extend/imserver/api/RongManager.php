@@ -21,6 +21,17 @@
        echo "\n";
    }
 
+
+     // 发送群组消息方法（以一个用户身份向群组发送消息，单条消息最大 128k.每秒钟最多发送 20 条消息，每次最多向 3 个群组发送，如：一次向 3 个群组发送消息，示为 3 条消息。）
+ public function publicGroupMessage($userId,$groupId,$obectName,$message,$pushMessage,$pushData,$extra='')
+ {
+     $result = $this->rongCloud->message()->publishGroup($userId, $groupId,$obectName,"{\"content\":\"$message\",\"extra\":\"$extra\"}", $pushMessage, "{\"pushData\":\"$pushData\"}", '1', '1');
+     return $result;
+ }
+
+
+
+
    public function publishPrivate($fromUserId, $toUserId,  $objectName, $content, $extra='',$pushContent = '', $pushData = '', $count = '4', $verifyBlacklist='0', $isPersisted='0', $isCounted='0')
    {
    	 $result=$this->rongCloud->message()->publishPrivate($fromUserId, $toUserId, $objectName,"{\"content\":\"$content\",\"extra\":\"$extra\"}", $pushContent, "{\"pushData\":\"$pushData\"}", $count,$verifyBlacklist,$isPersisted, $isCounted);
@@ -45,17 +56,18 @@
    public function createGroup($userId, $groupId, $groupName)
    {
 	$result = $this->rongCloud->group()->create($userId, $groupId, $groupName);
-	print_r($result);
-	echo "\n"; 
+	return $result;
    }
+
+
 	
 	// 同步用户所属群组方法（当第一次连接融云服务器时，需要向融云服务器提交 userId 对应的用户当前所加入的所有群组，此接口主要为防止应用中用户群信息同融云已知的用户所属群信息不同步。）
    public function syncGroup($userId, $groupInfo)
    {
 	
-	$result = $this->rongCloud->group()->sync($userId, $groupInfo);
-	print_r($result);
-	echo "\n";
+       $result = $this->rongCloud->group()->sync($userId, $groupInfo);
+       print_r($result);
+       echo "\n";
   }
 	
 	// 刷新群组信息方法
@@ -70,8 +82,9 @@
    public function joinGroup($userId, $groupId, $groupName)
   {	
   	$result = $this->rongCloud->group()->join($userId, $groupId, $groupName);
-	print_r($result);
-	echo "\n";
+//	print_r($result);
+//	echo "\n";
+                        return $result;
   }
 	// 查询群成员方法
    public function queryGroupUser($groupId)
