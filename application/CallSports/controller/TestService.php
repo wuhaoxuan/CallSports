@@ -92,4 +92,13 @@
           echo $med;
       }
 
+      public function ipTest()
+      {
+//          $hostname=gethostbyaddr($_SERVER['remote_addr']);    //获取主机名
+//          echo $hostname;            //输出结果
+//
+          $hosts=\CommonHelper::getSportTypePortraitUrl("fff");    //获取ip地址列表
+          print_r($hosts);
+      }
+
   }

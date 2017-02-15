@@ -1,5 +1,7 @@
 <?php
   namespace app\callsports\controller;
+  use app\callsports\model\AccountModel;
+  use app\CallSports\model\ActivityModel;
   use imserver\api\RongManager;
   use think\Db;
 
@@ -39,7 +41,9 @@
 
       public function getGroupInfo($groupId)
       {
-
+          $activityModel=new ActivityModel();
+          $result=$activityModel::where("uuid",$groupId)->find();
+          return $result;
       }
 
       public function publicGroupMessage($userId,$groupId,$message,$pushMessage='',$pushData='',$extra='')
