@@ -1,96 +1,92 @@
 {
-  "base":
-  {
-
-    "paths":
-    [
+  "base": {
+    "paths": [
       {
-        "tag":"localhost",
-        "url":"http://10.10.20.158"
+        "tag": "localhost",
+        "url": "http://10.10.20.158"
       },
       {
-        "tag":"friensservice",
-        "url":"http://10.10.20.158/public/index.php/callsports/friendservice"
+        "tag": "friensservice",
+        "url": "http://10.10.20.158/public/index.php/callsports/friendservice"
       },
       {
-        "tag":"friendsinfo",
-        "url":"http://10.10.20.158/public/index.php/callsports/friendservice/getFriendsInfo"
+        "tag": "friendsinfo",
+        "url": "http://10.10.20.158/public/index.php/callsports/friendservice/getFriendsInfo"
       },
       {
-        "tag":"register",
-        "url":"http://10.10.20.158/public/index.php/callsports/accountservice/register"
+        "tag": "register",
+        "url": "http://10.10.20.158/public/index.php/callsports/accountservice/register"
       },
       {
-        "tag":"login",
-        "url":"http://10.10.20.158/public/index.php/callsports/accountservice/login"
+        "tag": "login",
+        "url": "http://10.10.20.158/public/index.php/callsports/accountservice/login"
       },
       {
-        "tag":"publish",
-        "url":"http://10.10.20.158/public/index.php/callsports/activityservice/publish"
+        "tag": "publish",
+        "url": "http://10.10.20.158/public/index.php/callsports/activityservice/publish"
       },
       {
-        "tag":"searchfriend",
-        "url":"http://10.10.20.158/public/index.php/callsports/friendservice/searchFriend"
+        "tag": "searchfriend",
+        "url": "http://10.10.20.158/public/index.php/callsports/friendservice/searchFriend"
       },
       {
-        "tag":"addfriend",
-        "url":"http://10.10.20.158/public/index.php/callsports/friendservice/requestFriend"
+        "tag": "addfriend",
+        "url": "http://10.10.20.158/public/index.php/callsports/friendservice/requestFriend"
       },
       {
-        "tag":"getuserinfo",
-        "url":"http://10.10.20.158/public/index.php/callsports/friendservice/getUserInfo"
+        "tag": "getuserinfo",
+        "url": "http://10.10.20.158/public/index.php/callsports/friendservice/getUserInfo"
       },
       {
-        "tag":"modifyfriendstate",
-        "url":"http://10.10.20.158/public/index.php/callsports/friendservice/modifyFriendState"
+        "tag": "modifyfriendstate",
+        "url": "http://10.10.20.158/public/index.php/callsports/friendservice/modifyFriendState"
       },
       {
-        "tag":"creategroup",
-        "url":"http://10.10.20.158/public/index.php/callsports/groupservice/createGroup"
+        "tag": "creategroup",
+        "url": "http://10.10.20.158/public/index.php/callsports/groupservice/createGroup"
       },
       {
-        "tag":"syncgroup",
-        "url":"http://10.10.20.158/public/index.php/callsports/groupservice/syncGroup"
+        "tag": "syncgroup",
+        "url": "http://10.10.20.158/public/index.php/callsports/groupservice/syncGroup"
       },
       {
-        "tag":"allactivities",
-        "url":"http://10.10.20.158/public/index.php/callsports/activityservice/getAllActInfo"
+        "tag": "allactivities",
+        "url": "http://10.10.20.158/public/index.php/callsports/activityservice/getAllActInfo"
       },
       {
-        "tag":"getgroupinfo",
-        "url":"http://10.10.20.158/public/index.php/callsports/groupservice/getGroupInfo"
+        "tag": "getgroupinfo",
+        "url": "http://10.10.20.158/public/index.php/callsports/groupservice/getGroupInfo"
       }
-
     ],
-
-    "params":
-    [
+    "params": [
       {
-        "tag":"sporttype",
-        "data":
-        {
-          "type":[
-            {"name":"足球"},
-            {"name":"篮球"},
-            {"name":"台球"}
-          ]
-        }
+        "tag": "sporttype",
+        "data": [
+          {
+            "name": "足球","portrait":"http://10.10.20.158/public/pic/sporttype/football.png"
+          },
+          {
+            "name": "篮球"
+          },
+          {
+            "name": "台球"
+          }
+        ]
       },
-
       {
-        "tag":"paytype",
-        "data":
-        {
-          "type":
-          [
-            {"name":"均摊"},
-            {"name":"发起者买单"},
-            {"name":"参与者买单"}
-          ],
-          "test":"hello"
-        }
+        "tag": "paytype",
+        "data": [
+          {
+            "name": "均摊"
+          },
+          {
+            "name": "发起者买单"
+          },
+          {
+            "name": "参与者买单"
+          }
+        ]
       }
-
     ]
   }
 }
