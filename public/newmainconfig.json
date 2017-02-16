@@ -56,6 +56,10 @@
       {
         "tag": "getgroupinfo",
         "url": "http://10.10.20.158/public/index.php/callsports/groupservice/getGroupInfo"
+      },
+      {
+        "tag":"joinact",
+        "url":"http://10.10.20.158/public/index.php/callsports/ActivityService/joinAct"
       }
     ],
     "params": [
