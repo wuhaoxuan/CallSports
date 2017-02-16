@@ -64,28 +64,35 @@ class ActivityModel extends Model
                 return ['result' => \Constant::NOT_EXISTS];
             } else
             {
-                $members = $item->getAttr('members');
+                $query=Db::table($creater_id.\Constant::ACTIVITY_SUFFIX)->where('uuid',$uuid);
+                $item=$query->find();
+//                echo "uuid is ".$item[0];
+                $members = $item['members'];
                 if ($this->containUserId($user_id, $members))
                 {
                     return ['result' => \Constant::HAS_JOINED];
                 }
-                $data = ['members' => $item->getAttr('members') . ",$user_id"];
-                $result = $item->save($data);
+                $data = ['members' => $item['members'] . ",$user_id"];
+                $result=Db::table($creater_id.\Constant::ACTIVITY_SUFFIX)->where('uuid',$uuid)->update($data);
+                Db::commit();
                 if (empty($result))
                 {
                     return ['result' => \Constant::FAILED];
                 } else
                 {
-                    $result = Db::table($creater_id . "_activity")->lock(true)->where('uuid', $uuid)->update(['members' => $members . ",$user_id" . ":" . \Constant::ACTIVITY_APPLYING]);
-                    if ($result)
-                    {
-                        return ['result' => \Constant::SUCCESS];
-                    } else
-                    {
-                        return ['result' => \Constant::FAILED];
-                    }
+
+                    return ['result' => \Constant::SUCCESS];
+//                    $result = Db::table($creater_id . "_activity")->lock(true)->where('uuid', $uuid)->update(['members' => $members . ",$user_id"]);
+//                    if ($result)
+//                    {
+//                        return ['result' => \Constant::SUCCESS];
+//                    } else
+//                    {
+//                        return ['result' => \Constant::FAILED];
+//                    }
                 }
             }
+
         }
         catch(Exception $e)
         {

@@ -44,10 +44,16 @@ class ActivityService
 
     }
 
-    public function test()
+    public function test($creater_id,$user_id,$uuid)
     {
-        $activityModel=new ActivityModel();
-        $activityModel->test();
+        $item=Db::table($creater_id.\Constant::ACTIVITY_SUFFIX)->where('uuid',$uuid)->find();
+        return $item;
     }
+
+//    public function test()
+//    {
+//        $activityModel=new ActivityModel();
+//        $activityModel->test();
+//    }
 
 }
