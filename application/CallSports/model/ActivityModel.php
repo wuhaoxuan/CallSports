@@ -72,7 +72,8 @@ class ActivityModel extends Model
                 {
                     return ['result' => \Constant::HAS_JOINED];
                 }
-                $data = ['members' => $item['members'] . ",$user_id"];
+                self::where('uuid',$uuid)->update(['now_num'=>$item['now_num']+1]);
+                $data = ['now_num'=>$item['now_num']+1,'members' => $item['members'] . ",$user_id"];
                 $result=Db::table($creater_id.\Constant::ACTIVITY_SUFFIX)->where('uuid',$uuid)->update($data);
                 Db::commit();
                 if (empty($result))
