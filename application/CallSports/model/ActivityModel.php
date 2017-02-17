@@ -29,7 +29,7 @@ class ActivityModel extends Model
     public function publish($user_id, $nickName,$name,$sporttype, $time, $address, $latitude, $longitude, $total_num, $cost, $introduce)
     {
         $uuid = $this->create_uuid();
-        $insertData = ['user_id' => $user_id, 'nick_name'=>$nickName,'uuid' => $uuid, 'name' => $name, 'sporttype'=>$sporttype,'time' => $time, 'address' => $address, 'latitude' => $latitude, 'longitude' => $longitude, 'total_num' => $total_num, 'cost' => $cost, 'introduce' => $introduce, 'now_num' => 1];
+        $insertData = ['user_id' => $user_id, 'nick_name'=>$nickName,'uuid' => $uuid, 'name' => $name, 'sporttype'=>$sporttype,'time' => $time, 'address' => $address, 'latitude' => $latitude, 'longitude' => $longitude, 'total_num' => $total_num, 'cost' => $cost, 'introduce' => $introduce, 'now_num' => 1,'members'=>$user_id];
         $this->data($insertData);
         $allInsertResult = $this->save();
         if (empty($allInsertResult))
@@ -66,22 +66,25 @@ class ActivityModel extends Model
             {
                 $query=Db::table($creater_id.\Constant::ACTIVITY_SUFFIX)->where('uuid',$uuid);
                 $item=$query->find();
-//                echo "uuid is ".$item[0];
                 $members = $item['members'];
                 if ($this->containUserId($user_id, $members))
                 {
                     return ['result' => \Constant::HAS_JOINED];
                 }
-                self::where('uuid',$uuid)->update(['now_num'=>$item['now_num']+1]);
-                $data = ['now_num'=>$item['now_num']+1,'members' => $item['members'] . ",$user_id"];
+                self::where('uuid',$uuid)->update(['now_num'=>$item['now_num']+1,'members'=>$members.",$user_id"]);
+                $data = ['now_num'=>$item['now_num']+1,'members' => $members . ",$user_id"];
                 $result=Db::table($creater_id.\Constant::ACTIVITY_SUFFIX)->where('uuid',$uuid)->update($data);
-                Db::commit();
+
                 if (empty($result))
                 {
+                    Db::commit();
                     return ['result' => \Constant::FAILED];
                 } else
                 {
-
+                    $item['members']=$item['members'].",$user_id";
+                    $item['now_num']=$item['now_num']+1;
+                    Db::table($user_id.\Constant::ACTIVITY_SUFFIX)->insert($item);
+                    Db::commit();
                     return ['result' => \Constant::SUCCESS];
 //                    $result = Db::table($creater_id . "_activity")->lock(true)->where('uuid', $uuid)->update(['members' => $members . ",$user_id"]);
 //                    if ($result)
