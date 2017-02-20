@@ -44,16 +44,27 @@ class ActivityService
 
     }
 
-    public function test($creater_id,$user_id,$uuid)
+
+    public function cancelAct($userId,$uuid)
     {
-        $item=Db::table($creater_id.\Constant::ACTIVITY_SUFFIX)->where('uuid',$uuid)->find();
-        return $item;
+        $this->activityModel->cancelAct($userId,$uuid);
     }
 
-//    public function test()
+    public function quitAct($userId,$uuid)
+    {
+        $this->activityModel->quitAct($userId,$uuid);
+    }
+
+//    public function test($creater_id,$user_id,$uuid)
 //    {
-//        $activityModel=new ActivityModel();
-//        $activityModel->test();
+//        $item=Db::table($creater_id.\Constant::ACTIVITY_SUFFIX)->where('uuid',$uuid)->find();
+//        return $item;
 //    }
+
+    public function test($userId,$uuid)
+    {
+        $activityModel=new ActivityModel();
+        $activityModel->test($userId,$uuid);
+    }
 
 }

@@ -38,7 +38,7 @@ class ActivityModel extends Model
         } else
         {
 
-            $insertData = ['uuid' => $uuid, 'name' => $name, 'sporttype'=>$sporttype,'type' => \Constant::ACTIVITY_CREATE, 'members' => $user_id,'now_num' => 1];
+            $insertData = ['uuid' => $uuid, 'name' => $name, 'sporttype'=>$sporttype,'type' => \Constant::ACTIVITY_CREATE, 'members' => $user_id,'now_num' => 1,'state'=>\Constant::STATE_JOINED];
             $sigInsertResult = Db::table($user_id . "_activity")->insert($insertData);
             if ($sigInsertResult)
             {
@@ -84,6 +84,8 @@ class ActivityModel extends Model
                     $item['members']=$item['members'].",$user_id";
                     $item['now_num']=$item['now_num']+1;
                     Db::table($user_id.\Constant::ACTIVITY_SUFFIX)->insert($item);
+                    $this->rongManager->joinGroup($user_id,$uuid,$item['name']);
+                    $this->rongManager->publicGroupMessage(\Constant::SYSTEM_USER,$uuid,"RC:GrpNtf","$user_id 加入","$user_id 加入","");
                     Db::commit();
                     return ['result' => \Constant::SUCCESS];
 //                    $result = Db::table($creater_id . "_activity")->lock(true)->where('uuid', $uuid)->update(['members' => $members . ",$user_id"]);
@@ -128,7 +130,7 @@ class ActivityModel extends Model
         $result=self::where('id','>=',$start)->limit($offset)->select();
         if(empty($result))
         {
-            $result=['result'=>\Constant::FAILED];
+            $result=['result'=>\Constant::FAILED,'acts'=>$result];
         }
         else
         {
@@ -137,18 +139,110 @@ class ActivityModel extends Model
         return $result;
     }
 
-    public function test()
+    public function cancelAct($userId,$uuid)
     {
-        $model=new ActivityModel();
-        $result=$model->where('id','>',0)->limit(1)->find();
-        if(empty($result))
+        Db::startTrans();
+        try
         {
+            $result=['result'=>\Constant::SUCCESS];
+            $allResult = self::where('uuid', $uuid)->delete();
+            if (count($allResult) > 0)
+            {
+                $item=Db::table($userId.\Constant::ACTIVITY_SUFFIX)->where('uuid',$uuid)->find();
+                $members=$item['members'];
+                $groupId=$item['uuid'];
+                for($index=0;$index<count($members);$index++)
+                {
+                    $echResult=Db::table($members[$index].\Constant::ACTIVITY_SUFFIX)->where('uuid',$uuid)->update(['state'=>\Constant::STATE_DISMISS]);
+                }
+                $this->rongManager->dismissGroup($userId,$groupId);
+                $message="活动已取消，该群聊已解散。";
+                $this->rongManager->publicGroupMessage($userId,$groupId,"RC:GrpNtf",$message,$message,'');
+                $result['result']=\Constant::SUCCESS;
+
+            }
+            else
+            {
+                $result['result']=\Constant::NOT_EXISTS;
+            }
+            Db::commit();
+            return $result;
+        }
+        catch (Exception $e)
+        {
+            $result['result']=\Constant::FAILED;
+            Db::rollback();
+            return $result;
+        }
+    }
+
+    public function quitAct($userId,$uuid)
+    {
+        Db::startTrans();
+        try
+        {
+            $result=['result'=>\Constant::SUCCESS];
+            $item=self::where('uuid',$uuid)->find();
+            $item['members']=str_repeat(",$userId","",$item['members']);
+            self::where('uuid',$uuid)->update($item);
+            Db::table($userId.\Constant::ACTIVITY_SUFFIX)->where('uuid',$uuid)->update(['state'=>\Constant::STATE_QUIT]);
+            $this->rongManager->quitGroup($userId,$uuid);
+            return $result;
+        }
+        catch(Exception $e)
+        {
+            Db::rollback();
             $result=['result'=>\Constant::FAILED];
+            return $result;
         }
-        else
+    }
+
+    public function test($userId,$uuid)
+    {
+//        $model=new ActivityModel();
+//        $result=$model->where('id','>',0)->limit(1)->find();
+//        if(empty($result))
+//        {
+//            $result=['result'=>\Constant::FAILED];
+//        }
+//        else
+//        {
+//           $result=['result'=>\Constant::SUCCESS,'acts'=>$result];
+//        }
+//        echo $result;
+        Db::startTrans();
+        try
         {
-           $result=['result'=>\Constant::SUCCESS,'acts'=>$result];
+            $result=['result'=>\Constant::SUCCESS];
+            $allResult = self::where('uuid', $uuid)->delete();
+            if (count($allResult) > 0)
+            {
+                $members=Db::table($userId.\Constant::ACTIVITY_SUFFIX)->where('uuid',$uuid)->find();
+                for($index=0;$index<count($members);$index++)
+                {
+                    $echResult=Db::table($members[$index].\Constant::ACTIVITY_SUFFIX)->where('uuid',$uuid)->delete();
+                }
+
+//               if($echResult>0)
+//               {
+                   $result['result']=\Constant::SUCCESS;
+//               }
+//               else
+//               {
+
+//               }
+
+            }
+            else
+            {
+                  $result['result']=\Constant::NOT_EXISTS;
+            }
+            Db::commit();
         }
-        echo $result;
+        catch (Exception $e)
+        {
+            $result['result']=\Constant::FAILED;
+            Db::rollback();
+        }
     }
 }
