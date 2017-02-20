@@ -41,6 +41,8 @@ class Constant
 
     const SYSTEM_USER="system";
 
-    const SPORT_TYPE_MAP=['足球'=>"football.png",'篮球'=>"basketball.jpg",'台球'=>"billiards.jpg"];
+    const STATE_JOINED=1;
+    const STATE_QUIT=2;
+    const STATE_DISMISS=3;
 //public const ACTIVITY_REGISTER=2;
 }

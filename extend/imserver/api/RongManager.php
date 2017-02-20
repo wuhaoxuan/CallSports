@@ -97,8 +97,8 @@
    public function quitGroup($userId, $groupId)
    {
 	$result = $this->rongCloud->group()->quit($userId, $groupId);
-	print_r($result);
-	echo "\n";
+//	print_r($result);
+//	echo "\n";
    }
 	// 添加禁言群成员方法（在 App 中如果不想让某一用户在群中发言时，可将此用户在群组中禁言，被禁言用户可以接收查看群组中用户聊天信息，但不能发送消息。）
    public function addGagUser($userId, $groupId, $minute)
@@ -126,8 +126,8 @@
   public function dismissGroup($userId, $groupId)
   {
 	$result = $this->rongCloud->group()->dismiss($userId, $groupId);
-	print_r($result);
-	echo "\n";
+//	print_r($result);
+//	echo "\n";
  }
 
  }
