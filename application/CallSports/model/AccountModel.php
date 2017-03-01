@@ -117,6 +117,12 @@
       }
 
 
+      public function uploadPortrait($userId,$path)
+      {
+          $result=self::where('user_id',$userId)->update(['protrait'=>$path]);
+          return $result;
+      }
+
       public function test()
       {
 //          $result=Db::table($this->table)->find();

@@ -1,0 +1,354 @@
+{
+  "base": {
+    "dataSource": [
+      {
+        "nlid": "nl.feed.localization",
+        "url": "https://neulion-a.akamaihd.net/nlmobile/univisionnow/assets/Localizable_es.string"
+      },
+      {
+        "nlid": "nl.image.path.dl",
+        "url": "https://neulionsmbnyc-a.akamaihd.net/u/univisionnow/thumbs/dl/${id}_${deviceType}.jpg"
+      },
+      {
+        "nlid": "nl.image.path.program",
+        "url": "https://neulionsmbnyc-a.akamaihd.net/u/univisionnow/thumbs/${imgName}_${deviceName}_${imgSize}.jpg"
+      },
+      {
+        "nlid": "nl.image.path.channel",
+        "url": "https://neulion-a.akamaihd.net/nlmobile/univisionnow/assets/images/channel-logos/${channelId}_${deviceType}_es.png"
+      },
+      {
+        "nlid": "nl.splash.ad.image.path",
+        "url.internal": "https://neulion-a.akamaihd.net/nlmobile/univisionnow/assets/images/channel-logos/${channelId}_${deviceType}_es.jpg",
+        "url": "https://neulionsmbnyc-a.akamaihd.net/u/univisionnow/thumbs/channels/${channelId}_${deviceType}_es.jpg"
+      },
+      {
+        "nlid": "nl.feed.epg",
+        "url": "https://neulionsmbnyc-a.akamaihd.net/u/univisionnow/epg/export/${channelName}/${yyyy}/${mm}/${dd}.json"
+      },
+      {
+        "nlid": "nl.feed.newsvideo",
+        "url": "http://syndicator.univision.com/feed/custom/${region}?client_id=${clientId}&signature=${signature}",
+        "params": {
+          "clientId": "ea56f885153384c36e2c9be808bc2e552d4f3723",
+          "secretKey": "f4ec70c81c5dcd9f27be0512673cd7fa4b275c22",
+          "map": {
+            "atlanta": "atlanta-univision-app-feed",
+            "austin": "austin-univision-app-feed",
+            "cleveland": "noticias-app-redesign-inicio",
+            "fresno": "freso-univision-app-feed",
+            "philadelphia": "philadelphia-univision-app-feed",
+            "phoenix": "arizona-univision-app-feed",
+            "raleigh": "raleigh-univision-app-feed",
+            "sacramento": "sacramento-univision-app-feed",
+            "salt lake": "noticias-app-redesign-inicio",
+            "san antonio": "san-antonio-univision-app-feed",
+            "san francisco": "san-francisco-univision-app",
+            "las vegas": "las-vegas-univision-app-feed",
+            "albuquerque-santa fe": "noticias-app-redesign-inicio",
+            "chicago": "chicago-univision-app-feed",
+            "miami": "miami-univision-application-feed",
+            "dallas": "dallas-univision-app-feed",
+            "houston": "houston-univision-app-feed",
+            "la": "los-angeles-univision-app-feed",
+            "ny": "new-york-univision-app-feed",
+            "east": "noticias-app-redesign-inicio",
+            "west": "noticias-app-redesign-inicio"
+          }
+        }
+      },
+      {
+        "nlid": "nl.image.path.channel.cover",
+        "url": "https://neulion-a.akamaihd.net/nlmobile/univisionnow/assets/images/player-thumbnails/${channelId}/${deviceType}.jpg"
+      },
+      {
+        "nlid": "nl.image.path.region.logos",
+        "url": "https://neulion-a.akamaihd.net/nlmobile/univisionnow/assets/images/region-logos/${regionLogo}"
+      },
+      {
+        "nlid": "nl.app.solr.genres",
+        "url": "https://neulionsc1-a.akamaihd.net/solr/univisionnow_category/usersearch?q=*:*&rows=0&facet=true"
+      },
+      {
+        "nlid": "nl.app.solr.shows",
+        "url": "https://neulionsc1-a.akamaihd.net/solr/univisionnow_category/usersearch?q=tagsExact:\"${genreTag}\"&fq=status:2&rows=200&sort=seoName+asc"
+      }
+    ],
+    "services": [
+      {
+        "nlid": "nl.service.app",
+        "url": "https://www.univisionnow.com"
+      },
+      {
+        "nlid": "nl.service.app.secure",
+        "url": "https://www.univisionnow.com"
+      },
+      {
+        "nlid": "nl.service.qos",
+        "url": "http://nlqosdrecv01.neulion.com/msdrecv/ProxyBean",
+        "params": {
+          "siteID": "univisionnow",
+          "productID": "univisionnow",
+          "sampleInterval": 30
+        }
+      },
+      {
+        "nlid": "nl.service.freewheel",
+        "url": "http://1b656.v.fwmrm.net",
+        "params": {
+          "networkId": "112214",
+          "profile": "univision_android_live",
+          "adManager": "http://adm.fwmrm.net/p/nbcu_android_live/AdManager.fpk"
+        }
+      },
+      {
+        "nlid": "nl.app.tos",
+        "url": "https://univisionnow.neulion.com/tos?embed=true",
+        "params": {
+          "ts": "20160610",
+          "title": "@nlkey/TosAndPPChangedTitleKey",
+          "message": "@nlkey/TosAndPPChangedContentKey"
+        }
+      },
+      {
+        "nlid": "nl.app.faq",
+        "url": "https://univisionnow.neulion.com/faq?embed=true"
+      },
+      {
+        "nlid": "nl.app.credits",
+        "url": "https://univisionnow.neulion.com/page/credits?embed=true"
+      },
+      {
+        "nlid": "nl.app.privacy",
+        "url": "https://univisionnow.neulion.com/privacy?embed=true"
+      }
+    ],
+    "appParams": [
+
+       {
+    "nlid": "nl.app.rating",
+    "enabled": true,
+    "params": {
+        "rateNewVersion" : true,
+        "daysUsed": 0,
+        "appOpens": 1,
+        "videoStarts": 1,
+        "videoMinutesWatched": 0,
+        "remindPeriod": 0,
+        "title": "Rate Btn2Go",
+        "message": "If you enjoy using Btn2Go, would you mind taking a moment to rate it? It won’t take more than a minute. Thanks for your support!",
+        "cancelBtn" : "No, Thanks",
+        "rateBtn" : "Rate It Now",
+        "remindBtn" : "Remind Me Later",
+        "customEvents":{
+            "customEvents1": 0,
+            "customEvents2": 0,
+            "customEvents3": 0
+        }
+    }
+},
+
+
+      {
+        "nlid": "nl.app.settings",
+        "params": {
+          "debugLog": true,
+          "GoogleSkuPrefix": "com.univision.univisionnow.iap.autorenew",
+          "enableNielsen": true,
+          "backgroundAudio": true,
+          "showGoToDeportesPage": true,
+          "purchaseJumpLinkURL": "univisiondeportes://gotoDeeplink",
+          "purchaseJumpStoreLinkURL": "https://play.google.com/store/apps/details?id=com.univision.univisionnow&hl=en",
+          "catRoot": 58,
+          "vodPageNum": 2,
+          "vodPageSize": 15,
+          "futureDate": 6,
+          "epgDelayTime": 60,
+          "channelVodDelayTime": 25,
+          "epgLoadBuffer": 4,
+          "useLbs": "WhenAvailable",
+          "alarmAdvance": true,
+          "prefetchEpgDays": 3,
+          "nonlocalIds": "6,5,10,1",
+          "num1": "vod10161",
+          "splashSponsorTime": 0,
+          "subscriberPreroll": false,
+          "dualLanguage": true,
+          "enableEpgBlackout": false,
+          "enableNLDai": false,
+          "adStitchingEnabled": false,
+          "forceNotificationEnabled":true
+        }
+      },
+      {
+        "nlid": "nl.app.alertshow",
+        "url": "https://neulion-a.akamaihd.net/nlmobile/univisionnow/assets/alert_shows.json"
+      },
+      {
+        "nlid": "nl.app.greeting",
+        "enabled": false,
+        "params": {
+          "title": "@nlkey/nl.app.greeting.title",
+          "message": "@nlkey/nl.app.greeting.message",
+          "forceUpgrade": false,
+          "upgradeUrl": ""
+        }
+      },
+      {
+        "nlid": "nl.app.info",
+        "params": {
+          "nlurl": "http://www.neulion.com",
+          "advInfo": true,
+          "email": {
+            "enable": true,
+            "showLibrary": false,
+            "to": "support@univisionnow.com",
+            "subject": "@nlkey/nl.app.info.subject"
+          }
+        }
+      },
+      {
+        "nlid": "nl.app.bitrates",
+        "params": {
+          "displays": [
+            {
+              "cap": "1600",
+              "title": "BandwidthHighKey"
+            },
+            {
+              "cap": "800",
+              "title": "BandwidthGoodKey"
+            },
+            {
+              "cap": "min",
+              "title": "BandwidthAudioOnlyKey"
+            }
+          ]
+        }
+      },
+      {
+        "nlid": "nl.adobepass.mvpd",
+        "params": {
+          "url": "https://sp.auth.adobe.com/adobe-services",
+          "url.staging": "https://sp.auth-staging.adobe.com/adobe-services",
+          "requestor": "univision",
+          "list": "http://smbstaging.com.edgesuite.net/u/qa/univisionnow/adobepassconfig.xml",
+          "images": "http://smbstaging.com.edgesuite.net/u/qa/univisionnow/thumbs/mvpds",
+          "help": "http://beta.univision.com/deportes-app-esp-new"
+        }
+      },
+      {
+        "nlid": "nl.player.strategy",
+        "params": {
+          "sdk": 100,
+          "decoder": "neulion_hardware",
+          "comments": "neulion_software/neulion_hardware/native_hardware"
+        }
+      },
+      {
+        "nlid": "nl.app.welcome",
+        "params": {
+          "phoneBgUrl": "https://neulion-a.akamaihd.net/nlmobile/univisionnow/assets/images/welcome/phone.png",
+          "tabletBgUrl": "https://neulion-a.akamaihd.net/nlmobile/univisionnow/assets/images/welcome/landscape.png",
+          "subscribleBgColor": "073F95",
+          "freePreviewBgColor": "1ABD63"
+        }
+      },
+      {
+        "nlid": "nl.service.interval",
+        "params": {
+          "default": 300,
+          "home": 300,
+          "dl": 30,
+          "channel": 300,
+          "epg": 600,
+          "sessionPoll": 300,
+          "freeTrialTime": 300,
+          "freeTrialInterval": 86400
+        }
+      },
+      {
+        "nlid": "nl.service.chromecast",
+        "enabled": true,
+        "params": {
+          "enablePlayList": false,
+          "appId": "19063777"
+        }
+      },
+      {
+        "nlid": "nl.service.gaa",
+        "params": {
+          "gaa": "UA-68611916-1"
+        }
+      },
+      {
+        "nlid": "nl.service.products",
+        "params": {
+          "publicKey": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlUn1Oq4+329SoTijEFYgk63cy1hmhnFdlmwhV9HFMDu8Y16DfXfUatOKu7MKjnqzfaUyc6O87jLQLayZXwBVKVkjvfYIh/gBWHaQ0rYykIMWOWEbOHLfG5YmJ8m4Qzaqse5vjKhe4fhMASp+QpwDFl6Kfhc6dnB8+ChEZUVgE59ICT7D4QU+DIX2aC9LYzb1u4NeEY4ZhQTBrXoIV8N6MEQtRE6GTzzfNjgOT0mjpxcUOuPPViCxP1DNGvt7aHD6zgngfrCyBk/swiisNrg39SOinBejZ3KmsLPJnF5snUgs3q59jdLKIto676nCtSoXJlhDmryrTu0wYUXxV/VvrQIDAQAB",
+          "GoogleSkuPrefix": "com.univision.univisionnow.iap.autorenew",
+          "GoogleSkuMonthlyTier": ".b",
+          "GoogleSkuAnnualTier": ".tier49.b"
+        }
+      },
+      {
+        "nlid": "nl.channle.order",
+        "params": {
+          "channelOrder": [
+            {
+              "order": 1,
+              "channel": "Univision",
+              "epgUrl": "https://neulionsmbnyc-a.akamaihd.net/u/univisionnow/epg/export/${channel}/${yyyy/mm/dd}.json",
+              "logoUrl": "https://neulion-a.akamaihd.net/nlmobile/univisionnow/assets/images/player-thumbnails/univision"
+            },
+            {
+              "order": "2",
+              "channel": "UniMas",
+              "epgUrl": "https://neulionsmbnyc-a.akamaihd.net/u/univisionnow/epg/export/${channel}/${yyyy/mm/dd}.json",
+              "logoUrl": "https://neulion-a.akamaihd.net/nlmobile/univisionnow/assets/images/player-thumbnails/unimas"
+            },
+            {
+              "order": 3,
+              "channel": "UNIMÁS",
+              "epgUrl": "https://neulionsmbnyc-a.akamaihd.net/u/univisionnow/epg/export/${channel}/${yyyy/mm/dd}.json",
+              "logoUrl": "https://neulion-a.akamaihd.net/nlmobile/univisionnow/assets/images/player-thumbnails/unimas"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "redirect": {
+    "versions": [
+      {
+        "url": "https://neulion-a.akamaihd.net/nlmobile/univisionnow/config/android/uvnow_upgrade.nmc",
+        "numbers": [
+          "6.0104",
+          "6.0825",
+          "6.0826",
+          "6.0909",
+          "6.1026",
+          "6.1028",
+          "6.1222"
+        ]
+      },
+      {
+        "url": "https://neulion-a.akamaihd.net/nlmobile/univisionnow/config/android/uvnow_android_qa.nmc",
+        "numbers": [
+          "7.0208",
+          "7.0214"
+        ]
+      }
+    ]
+  },
+  "locale": {
+    "country": {},
+    "language": {
+      "en": [
+        {
+          "nlid": "nl.feed.localization",
+          "url": "https://neulion-a.akamaihd.net/nlmobile/univisionnow/assets/Localizable_en.string"
+        }
+      ]
+    }
+  }
+}

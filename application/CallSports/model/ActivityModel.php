@@ -128,14 +128,14 @@ class ActivityModel extends Model
     public function getAllActInfo($start,$offset)
     {
         $result=self::where('id','>=',$start)->limit($offset)->select();
-        if(empty($result))
-        {
-            $result=['result'=>\Constant::FAILED,'acts'=>$result];
-        }
-        else
-        {
+//        if(empty($result))
+//        {
+//            $result=['result'=>\Constant::FAILED,'acts'=>$result];
+//        }
+//        else
+//        {
             $result=['result'=>\Constant::SUCCESS,'acts'=>$result];
-        }
+//        }
         return $result;
     }
 

@@ -70,7 +70,30 @@
 
       public function test()
       {
-          $activityModel=new AccountModel();
-          $activityModel->test();
+          $path=ROOT_PATH.'public'.DS.'uploads';
+          echo "path is $path";
       }
+
+      public function uploadPortrait($userId)
+      {
+
+           $file=request()->file($userId);
+           $result=\Constant::FAILED;
+           if(!empty($file))
+           {
+               $newFile = $file->move(ROOT_PATH . 'public' . DS . 'portrait' . DS . "$userId");
+               $newPath=ROOT_PATH . 'public' . DS . 'portrait' . DS . "$userId" . DS . "portrait.png";
+               $url="http://".gethostbyname("localhost").DS.'public' . DS . 'portrait' . DS . "$userId" . DS . "portrait.png";
+               if(rename($newFile->getPathname(),$newPath))
+               {
+                   rmdir($newFile->getPath());
+                   $accountModel=new AccountModel();
+                   $result=$accountModel->uploadPortrait($userId,$url);
+               }
+
+           }
+           return $result;
+
+      }
+
   }
