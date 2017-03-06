@@ -6,8 +6,8 @@ class Constant
     const ACTIVITY_HAS_REGISTERED = 1;
     const ACTIVITY_APPLYING = 2;
     const ACTIVITY_DENIED=3;
-    const SUCCESS="success";
-    const FAILED="failed";
+    const SUCCESS='success';
+    const FAILED='failed';
     const NOT_EXISTS="not exists";
     const HAS_JOINED="has joined";
 

@@ -70,8 +70,7 @@
 
       public function test()
       {
-          $path=ROOT_PATH.'public'.DS.'uploads';
-          echo "path is $path";
+          return \Constant::SUCCESS;
       }
 
       public function uploadPortrait($userId)
@@ -89,11 +88,15 @@
                    rmdir($newFile->getPath());
                    $accountModel=new AccountModel();
                    $result=$accountModel->uploadPortrait($userId,$url);
+                   if(count($result)>0)
+                   {
+                       $result=\Constant::SUCCESS;
+                   }
                }
 
            }
-           return $result;
-
+           echo $result;
       }
+
 
   }

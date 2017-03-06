@@ -26,10 +26,10 @@ class ActivityModel extends Model
         $this->rongManager=new RongManager();
     }
 
-    public function publish($user_id, $nickName,$name,$sporttype, $time, $address, $latitude, $longitude, $total_num, $cost, $introduce)
+    public function publish($user_id, $nickName,$name,$sporttype, $time, $address, $latitude, $longitude, $adcode,$total_num, $cost, $introduce)
     {
         $uuid = $this->create_uuid();
-        $insertData = ['user_id' => $user_id, 'nick_name'=>$nickName,'uuid' => $uuid, 'name' => $name, 'sporttype'=>$sporttype,'time' => $time, 'address' => $address, 'latitude' => $latitude, 'longitude' => $longitude, 'total_num' => $total_num, 'cost' => $cost, 'introduce' => $introduce, 'now_num' => 1,'members'=>$user_id];
+        $insertData = ['user_id' => $user_id, 'nick_name'=>$nickName,'uuid' => $uuid, 'name' => $name, 'sporttype'=>$sporttype,'time' => $time, 'address' => $address, 'latitude' => $latitude, 'longitude' => $longitude, 'adcode'=>$adcode,'total_num' => $total_num, 'cost' => $cost, 'introduce' => $introduce, 'now_num' => 1,'members'=>$user_id];
         $this->data($insertData);
         $allInsertResult = $this->save();
         if (empty($allInsertResult))
@@ -125,18 +125,27 @@ class ActivityModel extends Model
         return $result;
     }
 
-    public function getAllActInfo($start,$offset)
+    public function getAllActInfo($start,$offset,$adcode='')
     {
-        $result=self::where('id','>=',$start)->limit($offset)->select();
+        if(empty($adcode))
+        {
+            $result = self::where('id', '>=', $start)->limit($offset)->select();
 //        if(empty($result))
 //        {
 //            $result=['result'=>\Constant::FAILED,'acts'=>$result];
 //        }
 //        else
 //        {
-            $result=['result'=>\Constant::SUCCESS,'acts'=>$result];
+            $result = ['result' => \Constant::SUCCESS, 'acts' => $result];
 //        }
-        return $result;
+            return $result;
+        }
+        else
+        {
+            $result = self::where('id', '>=', $start)->where('adcode',$adcode)->limit($offset)->find();
+            $result = ['result' => \Constant::SUCCESS, 'acts' => $result];
+            return $result;
+        }
     }
 
     public function cancelAct($userId,$uuid)
